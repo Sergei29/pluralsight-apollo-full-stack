@@ -1,3 +1,3 @@
-# Branches:
+# About:
 
-- master: basic initial setup apollo-server vga2.0
+- Basic boiler plate setup for Apollo Server and Apollo Client with Typescript.
