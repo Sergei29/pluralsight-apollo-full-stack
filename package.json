@@ -1,10 +1,12 @@
 {
-  "name": "pluralsight-testing-apollo",
+  "name": "basic-apollo-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only server.ts"
+    "postinstall": "tsc",
+    "server:dev": "ts-node-dev --respawn --transpile-only server/server.ts",
+    "server": "tsc && node server/dist/server.js"
   },
   "author": "",
   "license": "ISC",
