@@ -1,5 +1,5 @@
-import { gql, ApolloServer, ServerInfo } from "apollo-server";
-const sessions = require("./data/sessions.json");
+import { gql, ApolloServer, ServerInfo, IResolvers } from "apollo-server";
+import SessionAPI from "./datasources/sessions";
 
 const port = process.env.PORT || 4000;
 const typeDefs = gql`
@@ -13,20 +13,31 @@ const typeDefs = gql`
     day: String
     format: String
     track: String
+      @deprecated(reason: "the field will not be in use very soon...")
     level: String
   }
   type Query {
     sessions: [Session]
+    sessionById(id: ID): Session
   }
 `;
 
-const resolvers = {
+const resolvers: IResolvers = {
   Query: {
-    sessions: () => sessions,
+    sessions: (parent, args, { dataSources }, info) => {
+      return dataSources.SessionAPI.getSessions();
+    },
+    sessionById: (parent, { id }, { dataSources }, info) => {
+      return dataSources.SessionAPI.getSessionById(id);
+    },
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const dataSources = () => ({
+  SessionAPI: new SessionAPI(),
+});
+
+const server = new ApolloServer({ typeDefs, resolvers, dataSources });
 
 server.listen({ port }).then(({ url }: ServerInfo) => {
   console.log(`Server running at ${url}`);
