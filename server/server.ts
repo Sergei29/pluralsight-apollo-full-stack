@@ -1,16 +1,28 @@
 import { gql, ApolloServer, ServerInfo } from "apollo-server";
+const sessions = require("./data/sessions.json");
 
 const port = process.env.PORT || 4000;
-
 const typeDefs = gql`
+  type Session {
+    id: ID!
+    title: String!
+    description: String
+    startsAt: String
+    endsAt: String
+    room: String
+    day: String
+    format: String
+    track: String
+    level: String
+  }
   type Query {
-    greeting: String
+    sessions: [Session]
   }
 `;
 
 const resolvers = {
   Query: {
-    greeting: () => "Hello GraphQL World!",
+    sessions: () => sessions,
   },
 };
 

@@ -7,7 +7,7 @@
     "client": "cd client && npm start",
     "compile-server": "cd server/ && tsc -w",
     "test-client": "cd client && npm test",
-    "postinstall": "npm run tsc && cd client && npm install",
+    "postinstall": "cd client && npm install",
     "build": "cd client && npm run build",
     "server:dev": "ts-node-dev --respawn --transpile-only server/server.ts",
     "dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run client\"",
