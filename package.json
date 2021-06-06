@@ -10,6 +10,7 @@
     "postinstall": "cd client && npm install",
     "build": "cd client && npm run build",
     "server:dev": "ts-node-dev --respawn --transpile-only server/server.ts",
+    "server-api-dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"cd speakersApi && npm start",
     "dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run client\"",
     "server": "tsc && node server/dist/server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
