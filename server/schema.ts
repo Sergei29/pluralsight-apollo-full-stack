@@ -13,6 +13,7 @@ const typeDefs = gql`
     track: String
       @deprecated(reason: "the field will not be in use very soon...")
     level: String
+    speakers: [Speaker]
   }
 
   type Speaker {
