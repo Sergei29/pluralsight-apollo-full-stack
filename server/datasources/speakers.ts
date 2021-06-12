@@ -8,7 +8,6 @@ class SpeakerAPI extends RESTDataSource {
   }
 
   async getSpeakers() {
-    throw new Error("");
     return await this.get("/");
   }
 
