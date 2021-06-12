@@ -13,7 +13,20 @@ const typeDefs = gql`
     track: String
       @deprecated(reason: "the field will not be in use very soon...")
     level: String
+    favorite: Boolean
     speakers: [Speaker]
+  }
+
+  input SessionInput {
+    title: String!
+    description: String
+    startsAt: String
+    endsAt: String
+    room: String
+    day: String
+    format: String
+    track: String
+    favorite: Boolean
   }
 
   type Speaker {
@@ -37,11 +50,16 @@ const typeDefs = gql`
       level: String
     ): [Session]
 
-    sessionById(id: ID): Session
+    sessionById(id: ID!): Session
 
     speakers: [Speaker]
 
     speakerById(id: ID!): Speaker
+  }
+
+  type Mutation {
+    toggleFavoriteSession(id: ID!): Session
+    addNewSession(session: SessionInput!): Session
   }
 `;
 
