@@ -1,6 +1,7 @@
-import { ResolverFn } from "apollo-server";
+import { IFieldResolver } from "apollo-server";
+import { ContextType } from "../types";
 
-const Query: Record<string, ResolverFn> = {
+const Query: Record<string, IFieldResolver<any, ContextType>> = {
   sessions: (parent, args, { dataSources }, info) => {
     return dataSources.SessionAPI.getSessions(args);
   },
