@@ -13,7 +13,16 @@ const typeDefs = gql`
     track: String
       @deprecated(reason: "the field will not be in use very soon...")
     level: String
+    speakers: [Speaker]
   }
+
+  type Speaker {
+    id: ID!
+    bio: String
+    name: String
+    sessions: [Session]
+  }
+
   type Query {
     sessions(
       id: ID
@@ -27,7 +36,12 @@ const typeDefs = gql`
       track: String
       level: String
     ): [Session]
+
     sessionById(id: ID): Session
+
+    speakers: [Speaker]
+
+    speakerById(id: ID!): Speaker
   }
 `;
 
