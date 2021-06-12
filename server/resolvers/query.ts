@@ -6,7 +6,15 @@ const Query: Record<string, IFieldResolver<any, ContextType>> = {
     return dataSources.SessionAPI.getSessions(args);
   },
   sessionById: (parent, { id }, { dataSources }, info) => {
-    return dataSources.SessionAPI.getSessionById(id);
+    try {
+      return dataSources.SessionAPI.getSessionById(id);
+    } catch (error) {
+      return {
+        code: "ERROR",
+        message: "An error occured.",
+        token: "12332affrefsg",
+      };
+    }
   },
   speakers: (parent, args, { dataSources }, info) => {
     return dataSources.SpeakerAPI.getSpeakers();

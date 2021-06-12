@@ -8,6 +8,14 @@ const resolvers = {
   Speaker,
   Query,
   Mutation,
+  SessionOrError: {
+    __resolveType(obj: Record<string, any>) {
+      if (obj.code) {
+        return "Error";
+      }
+      return "Session";
+    },
+  },
 };
 
 export default resolvers;

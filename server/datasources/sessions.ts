@@ -16,6 +16,7 @@ class SessionAPI extends DataSource {
   };
 
   getSessionById = (id: string) => {
+    throw new Error("");
     return _.filter(sessions, { id: parseInt(id) })[0];
   };
 
