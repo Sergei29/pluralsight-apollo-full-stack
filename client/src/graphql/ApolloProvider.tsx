@@ -4,20 +4,20 @@ import {
   InMemoryCache,
   ApolloProvider as ApolloProviderHOC,
   HttpLink,
+  InMemoryCacheConfig,
 } from "@apollo/client";
 
-const httpLink = new HttpLink({
-  uri:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:4000/graphql"
-      : "/graphql",
-});
-
-const getClient = () =>
+const getClient = (objCacheCongig: InMemoryCacheConfig = {}) =>
   new ApolloClient({
-    link: httpLink,
-    cache: new InMemoryCache(),
+    link: new HttpLink({
+      uri:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:4000/graphql"
+          : "/graphql",
+    }),
+    cache: new InMemoryCache(objCacheCongig),
     connectToDevTools: process.env.NODE_ENV === "development",
+    credentials: "same-origin",
   });
 
 type Props = {
