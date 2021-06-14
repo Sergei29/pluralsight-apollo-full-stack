@@ -1,7 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { GET_GREETING } from "./graphql/queries";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Media } from "./pages/media/Media";
