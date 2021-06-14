@@ -1,9 +1,9 @@
-import * as React from "react";
+import React from "react";
 import "./style-sessions.css";
 
 /* ---> Define queries, mutations and fragments here */
 
-const SpeakerList = () => {
+const SpeakerList: React.FC = () => {
   /* ---> Replace hardcoded speaker values with data that you get back from GraphQL server here */
   const featured = false;
 
@@ -47,7 +47,7 @@ const SpeakerList = () => {
   );
 };
 
-const SpeakerDetails = () => {
+const SpeakerDetails: React.FC = () => {
   /* ---> Replace hardcoded speaker values with data that you get back from GraphQL server here */
   return (
     <div key={"id"} className="col-xs-12" style={{ padding: 5 }}>
@@ -70,7 +70,7 @@ const SpeakerDetails = () => {
   );
 };
 
-export const Speaker = () => {
+export const Speaker: React.FC = () => {
   return (
     <>
       <div className="container">
@@ -82,7 +82,7 @@ export const Speaker = () => {
   );
 };
 
-export const Speakers = () => {
+export const Speakers: React.FC = () => {
   return (
     <>
       <div className="container">

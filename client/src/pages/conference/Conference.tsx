@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
-import "./style-sessions.css";
 import { Sessions, AddSession } from "./Sessions";
 import { Speakers, Speaker } from "./Speakers";
+import "./style-sessions.css";
 
 type Props = { children: React.ReactNode; to: string };
 const HeroLinkButton: React.FC<Props> = ({ children, to }) => {
@@ -25,7 +25,7 @@ const HeroLinkButton: React.FC<Props> = ({ children, to }) => {
   );
 };
 
-export const Conference = () => {
+export const Conference: React.FC = () => {
   const { path, url } = useRouteMatch();
 
   return (

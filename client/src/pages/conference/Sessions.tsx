@@ -1,11 +1,11 @@
 import React, { useState, Fragment } from "react";
-import "./style-sessions.css";
 import { Link } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
+import "./style-sessions.css";
 
 /* ---> Define queries, mutations and fragments here */
 
-const AllSessionList = () => {
+const AllSessionList: React.FC = () => {
   /* ---> Invoke useQuery hook here to retrieve all sessions and call SessionItem */
   return <SessionItem />;
 };
@@ -19,7 +19,7 @@ const SessionList: React.FC<Props> = ({ day }) => {
   return <SessionItem />;
 };
 
-const SessionItem = () => {
+const SessionItem: React.FC = () => {
   /* ---> Replace hard coded session values with data that you get back from GraphQL server here */
   return (
     <div key={"id"} className="col-xs-12 col-sm-6" style={{ padding: 5 }}>
@@ -39,7 +39,7 @@ const SessionItem = () => {
   );
 };
 
-export const Sessions = () => {
+export const Sessions: React.FC = () => {
   const [day, setDay] = useState("");
   return (
     <Fragment>
@@ -91,7 +91,7 @@ export const Sessions = () => {
   );
 };
 
-export const SessionForm = () => {
+export const SessionForm: React.FC = () => {
   /* ---> Call useMutation hook here to create new session and update cache */
 
   return (
@@ -166,7 +166,7 @@ export const SessionForm = () => {
   );
 };
 
-export const AddSession = () => {
+export const AddSession: React.FC = () => {
   return (
     <Fragment>
       <section className="banner">
