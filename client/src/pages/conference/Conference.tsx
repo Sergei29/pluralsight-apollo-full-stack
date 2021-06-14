@@ -1,29 +1,11 @@
 import React, { Fragment } from "react";
-import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
-import { Sessions, AddSession } from "./Sessions";
-import { Speakers, Speaker } from "./Speakers";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
+import Sessions from "../../components/Sessions";
+import AddSession from "../../components/AddSession";
+import Speakers from "../../components/Speakers";
+import Speaker from "../../components/Speaker";
+import HeroLinkButton from "../../components/HeroLinkButton";
 import "./style-sessions.css";
-
-type Props = { children: React.ReactNode; to: string };
-const HeroLinkButton: React.FC<Props> = ({ children, to }) => {
-  return (
-    <h1>
-      <Link
-        style={{
-          border: "solid 1px white",
-          borderRadius: 20,
-          padding: 20,
-          display: "flex",
-          justifyContent: "center",
-          backgroundColor: "#0D1424",
-        }}
-        to={to}
-      >
-        {children}
-      </Link>
-    </h1>
-  );
-};
 
 export const Conference: React.FC = () => {
   const { path, url } = useRouteMatch();

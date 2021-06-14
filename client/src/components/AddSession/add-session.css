@@ -1,0 +1,57 @@
+.banner {
+  clear: both;
+  position: relative;
+}
+.banner img {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+}
+.banner h1 {
+  font-size: 48px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 36px;
+}
+.banner span {
+  font-size: 30px;
+}
+.banner h1 {
+  font-size: 56px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 45px;
+  text-align: left;
+}
+.banner p {
+  font-style: italic;
+  font-size: 18px;
+}
+.banner h1 span {
+  font-size: 36px !important;
+  font-weight: normal;
+}
+
+@media (max-width: 768px) {
+  .banner img {
+    width: auto;
+    display: none;
+  }
+  .banner h1 {
+    font-size: 34px;
+    line-height: 30px;
+  }
+  .banner {
+    background: url("../../images/mobileBanner.png");
+    background-size: cover;
+    background-position: center;
+    height: 460px;
+  }
+
+  .banner h1 span {
+    font-size: 20px !important;
+  }
+  .banner p {
+    font-size: 14px;
+  }
+}

@@ -556,7 +556,7 @@ nav.navbar {
     line-height: 30px;
   }
   .banner {
-    background: url("./mobileBanner.png");
+    background: url("../../images/mobileBanner.png");
     background-size: cover;
     background-position: center;
     height: 460px;
