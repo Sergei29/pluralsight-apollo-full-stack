@@ -7,7 +7,7 @@ type Props = {
 
 const SessionList: React.FC<Props> = ({ day }) => {
   /* ---> Invoke useQuery hook here to retrieve sessions per day and call SessionItem */
-  return <SessionItem />;
+  return <div>{/* <SessionItem /> */}</div>;
 };
 
 export default SessionList;

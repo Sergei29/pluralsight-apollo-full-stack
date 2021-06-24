@@ -1,6 +1,4 @@
 import { DataSource } from "apollo-datasource";
-import fs from "fs";
-import path from "path";
 import _ from "lodash";
 const sessions = require("../data/sessions.json");
 
