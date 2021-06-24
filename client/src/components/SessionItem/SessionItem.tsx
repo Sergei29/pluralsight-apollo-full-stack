@@ -1,22 +1,12 @@
 import React from "react";
+import { SessionType } from "../types";
 
 type Props = {
-  id: string;
-  title: string;
-  day: string;
-  room: string;
-  level: string;
-  startsAt: string;
+  objSession: SessionType;
 };
 
-const SessionItem: React.FC<Props> = ({
-  title,
-  day,
-  room,
-  level,
-  id,
-  startsAt,
-}) => {
+const SessionItem: React.FC<Props> = ({ objSession }) => {
+  const { title, day, room, level, startsAt } = objSession;
   return (
     <div className="col-xs-12 col-sm-6" style={{ padding: 5 }}>
       <div className="panel panel-default">

@@ -1,6 +1,11 @@
 import React from "react";
+import { SpeakerType } from "../../../types";
 
-const SpeakerDetails: React.FC = () => {
+type Props = {
+  objSpeaker: SpeakerType;
+};
+
+const SpeakerDetails: React.FC<Props> = ({ objSpeaker }) => {
   /* ---> Replace hardcoded speaker values with data that you get back from GraphQL server here */
   return (
     <div key={"id"} className="col-xs-12" style={{ padding: 5 }}>

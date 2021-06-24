@@ -7,7 +7,7 @@ import "./style-sessions.css";
 /* ---> Define queries, mutations and fragments here */
 
 const Sessions: React.FC = () => {
-  const [day, setDay] = useState("");
+  const [day, setDay] = useState("All");
   return (
     <Fragment>
       <section className="banner">
@@ -50,8 +50,7 @@ const Sessions: React.FC = () => {
               Friday
             </button>
           </div>
-          {day !== "All" && <SessionList day={day} />}
-          {day === "All" && <AllSessionList />}
+          {day !== "All" ? <SessionList day={day} /> : <AllSessionList />}
         </div>
       </section>
     </Fragment>

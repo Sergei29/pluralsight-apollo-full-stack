@@ -4,23 +4,15 @@ import { SESSIONS } from "../../../../graphql/queries";
 import SessionItem from "../../../SessionItem";
 import { SessionType } from "../../../types";
 
-const AllSessionList = () => {
+const AllSessionList: React.FC = () => {
   const { loading, error, data } = useQuery<Record<string, any>>(SESSIONS);
 
-  if (loading) return <p>Loading</p>;
-  if (error) return <p>Error!</p>;
+  if (loading) return <p>Loading Sessions...</p>;
+  if (error) return <p>Error loading sessions!</p>;
   return (
     <div>
       {data?.sessions?.map((objSession: SessionType) => (
-        <SessionItem
-          key={objSession.id!}
-          title={objSession.title!}
-          level={objSession.level!}
-          day={objSession.day!}
-          room={objSession.room!}
-          id={objSession.id!}
-          startsAt={objSession.startsAt!}
-        />
+        <SessionItem key={objSession.id!} objSession={objSession} />
       ))}
     </div>
   );
