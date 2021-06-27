@@ -15,6 +15,9 @@ body {
 .form-control {
   color: BDFEF2;
 }
+.sessionsControls {
+  display: flex;
+}
 #wrapper {
   width: 100%;
   float: left;

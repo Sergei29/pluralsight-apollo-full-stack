@@ -1,30 +1,44 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useQuery } from "@apollo/client";
 import { SESSIONS } from "../../../../graphql/queries";
-import { SessionType } from "../../../types";
+import { SessionType, LevelsStateType } from "../../../types";
 import SessionItem from "../../../SessionItem";
 
 type ResponseDataType = {
-  sessions: SessionType[];
+  intro: SessionType[];
+  intermediate: SessionType[];
+  advanced: SessionType[];
 };
 
 type Props = {
   day: string;
+  objLevels: LevelsStateType;
 };
 
-const SessionList: React.FC<Props> = ({ day }) => {
+const SessionList: React.FC<Props> = ({ day, objLevels }) => {
   const { loading, error, data } = useQuery<ResponseDataType>(SESSIONS, {
     variables: { day },
   });
+  const { bIntro, bIntermediate, bAdvanced } = objLevels;
 
   if (loading) return <p>Loading Sessions...</p>;
   if (error) return <p>Error loading sessions!</p>;
   return (
-    <div>
-      {data?.sessions?.map((objSession: SessionType) => (
-        <SessionItem key={objSession.id!} objSession={objSession} />
-      ))}
-    </div>
+    <Fragment>
+      {bIntro &&
+        data?.intro?.map((objSession: SessionType) => (
+          <SessionItem key={objSession.id!} objSession={objSession} />
+        ))}
+      {bIntermediate &&
+        data?.intermediate?.map((objSession: SessionType) => (
+          <SessionItem key={objSession.id!} objSession={objSession} />
+        ))}
+
+      {bAdvanced &&
+        data?.advanced?.map((objSession: SessionType) => (
+          <SessionItem key={objSession.id!} objSession={objSession} />
+        ))}
+    </Fragment>
   );
 };
 

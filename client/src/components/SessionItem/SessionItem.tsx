@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { SessionType } from "../types";
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
 };
 
 const SessionItem: React.FC<Props> = ({ objSession }) => {
-  const { title, day, room, level, startsAt } = objSession;
+  const { title, day, room, level, startsAt, speakers } = objSession;
   return (
     <div className="col-xs-12 col-sm-6" style={{ padding: 5 }}>
       <div className="panel panel-default">
@@ -19,7 +20,18 @@ const SessionItem: React.FC<Props> = ({ objSession }) => {
           <h5>{`Room Number: ${room}`}</h5>
           <h5>{`Starts at: ${startsAt}`}</h5>
         </div>
-        <div className="panel-footer"></div>
+        <div className="panel-footer">
+          {speakers &&
+            speakers.map(({ id, name }) => (
+              <Link
+                key={id}
+                to={`/conference/speaker/${id}`}
+                className="btn btn-default btn-lg"
+              >
+                {`View ${name}'s profile`}
+              </Link>
+            ))}
+        </div>
       </div>
     </div>
   );

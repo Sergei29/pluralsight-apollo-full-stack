@@ -1,0 +1,14 @@
+.speakerItem {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.speakerItem__body {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.speakerItem__footer {
+  margin-top: auto;
+}

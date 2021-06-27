@@ -22,7 +22,9 @@ export const Conference: React.FC = () => {
         <Route path={`${path}/speakers`}>
           <Speakers />
         </Route>
-        <Route path={`${path}/speaker/:speaker_id`}>{/* <Speaker /> */}</Route>
+        <Route path={`${path}/speaker/:speaker_id`}>
+          <Speaker />
+        </Route>
         <Route path={`${path}`}>
           <section className="banner">
             <img src="images/banner3.png" alt="" />
