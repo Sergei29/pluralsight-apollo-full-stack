@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 type Props = { children: React.ReactNode; to: string };
@@ -23,4 +23,4 @@ const HeroLinkButton: React.FC<Props> = ({ children, to }) => {
   );
 };
 
-export default HeroLinkButton;
+export default memo(HeroLinkButton);

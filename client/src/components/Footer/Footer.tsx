@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => (
@@ -48,4 +48,4 @@ const Footer: React.FC = () => (
   </footer>
 );
 
-export default Footer;
+export default memo(Footer);

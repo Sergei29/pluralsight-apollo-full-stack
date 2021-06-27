@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 const NavLinks: React.FC = () => (
@@ -8,13 +8,11 @@ const NavLinks: React.FC = () => (
         Our story<span className="sr-only">(current)</span>
       </Link>
     </li>
-
     <li className="nav-item">
       <Link className="nav-link disabled" to="/robotics">
         Robotics
       </Link>
     </li>
-
     <li className="nav-item">
       <Link className="nav-link disabled" to="/media">
         Media
@@ -28,4 +26,4 @@ const NavLinks: React.FC = () => (
   </ul>
 );
 
-export default NavLinks;
+export default memo(NavLinks);

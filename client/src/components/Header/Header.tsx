@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/Globo-Logo-white.svg";
 import NavLinks from "../NavLinks";
@@ -72,4 +72,4 @@ const Header: React.FC = () => (
   </header>
 );
 
-export default Header;
+export default memo(Header);

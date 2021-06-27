@@ -1,12 +1,13 @@
-import React, { memo } from "react";
+import React, { memo, Fragment } from "react";
 
 type Props = {
   arrDays: string[];
   handleChangeDay: (strDay: string) => () => void;
 };
+
 const SessionFilterDays: React.FC<Props> = ({ arrDays, handleChangeDay }) => {
   return (
-    <>
+    <Fragment>
       {arrDays.map((strDay) => (
         <button
           type="button"
@@ -16,7 +17,7 @@ const SessionFilterDays: React.FC<Props> = ({ arrDays, handleChangeDay }) => {
           {strDay === "All" ? "All Sessions" : strDay}
         </button>
       ))}
-    </>
+    </Fragment>
   );
 };
 
