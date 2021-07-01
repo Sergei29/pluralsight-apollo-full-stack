@@ -1,8 +1,9 @@
 import React, { memo, Fragment } from "react";
+import { Days } from "../types";
 
 type Props = {
-  arrDays: string[];
-  handleChangeDay: (strDay: string) => () => void;
+  arrDays: Days[];
+  handleChangeDay: (strDay: Days) => () => void;
 };
 
 const SessionFilterDays: React.FC<Props> = ({ arrDays, handleChangeDay }) => {
@@ -13,8 +14,9 @@ const SessionFilterDays: React.FC<Props> = ({ arrDays, handleChangeDay }) => {
           type="button"
           onClick={handleChangeDay(strDay)}
           className="btn-oval"
+          key={strDay}
         >
-          {strDay === "All" ? "All Sessions" : strDay}
+          {strDay === Days.All ? "All Sessions" : strDay}
         </button>
       ))}
     </Fragment>

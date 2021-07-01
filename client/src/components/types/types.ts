@@ -13,3 +13,9 @@ export enum Levels {
   intermediate = "bIntermediate",
   advanced = "bAdvanced",
 }
+export enum Days {
+  All = "All",
+  Wednesday = "Wednesday",
+  Thursday = "Thursday",
+  Friday = "Friday",
+}

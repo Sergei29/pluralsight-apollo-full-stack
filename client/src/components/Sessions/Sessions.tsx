@@ -4,8 +4,10 @@ import AllSessionList from "./components/AllSessionList";
 import SessionList from "./components/SessionList";
 import SessionsFilterLevels from "../SessionsFilterLevels";
 import SessionFilterDays from "../SessionFilterDays";
-import { LevelsStateType, Levels } from "../types";
+import { LevelsStateType, Levels, Days } from "../types";
 import "./style-sessions.css";
+
+const { All, Wednesday, Thursday, Friday } = Days;
 
 const getInitialState = (): LevelsStateType => ({
   bIntro: true,
@@ -14,13 +16,13 @@ const getInitialState = (): LevelsStateType => ({
 });
 
 const Sessions: React.FC = () => {
-  const [day, setDay] = useState("All");
+  const [day, setDay] = useState<Days>(All);
   const [objLevels, setObjLevels] = useState<LevelsStateType>(
     getInitialState()
   );
 
   const handleChangeDay = useCallback(
-    (strDay: string) => () => setDay(strDay),
+    (strDay: Days) => () => setDay(strDay),
     []
   );
 
@@ -50,7 +52,7 @@ const Sessions: React.FC = () => {
         </div>
         <div className="sessionsControls">
           <SessionFilterDays
-            arrDays={["All", "Wednesday", "Thursday", "Friday"]}
+            arrDays={[All, Wednesday, Thursday, Friday]}
             handleChangeDay={handleChangeDay}
           />
           <SessionsFilterLevels
@@ -58,7 +60,7 @@ const Sessions: React.FC = () => {
             toggleLevel={toggleLevel}
           />
         </div>
-        {day !== "All" ? (
+        {day !== All ? (
           <SessionList day={day} objLevels={objLevels} />
         ) : (
           <AllSessionList objLevels={objLevels} />
