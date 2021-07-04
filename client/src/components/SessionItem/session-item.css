@@ -1,0 +1,8 @@
+.sessionItem__description h5 {
+  cursor: pointer;
+}
+
+.sessionItem__description h5:hover {
+  color: #2e6da4;
+  transition: all 300ms ease-in-out;
+}

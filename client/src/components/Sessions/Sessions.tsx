@@ -21,6 +21,8 @@ const Sessions: React.FC = () => {
     getInitialState()
   );
 
+  let isDescription = true;
+
   const handleChangeDay = useCallback(
     (strDay: Days) => () => setDay(strDay),
     []
@@ -61,9 +63,13 @@ const Sessions: React.FC = () => {
           />
         </div>
         {day !== All ? (
-          <SessionList day={day} objLevels={objLevels} />
+          <SessionList
+            day={day}
+            objLevels={objLevels}
+            isDescription={isDescription}
+          />
         ) : (
-          <AllSessionList objLevels={objLevels} />
+          <AllSessionList objLevels={objLevels} isDescription={isDescription} />
         )}
       </div>
     </section>

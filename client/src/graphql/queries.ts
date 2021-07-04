@@ -8,6 +8,7 @@ const SESSION_ATTRIBUTES = gql`
     room
     level
     startsAt
+    description @include(if: $isDescription)
     speakers {
       id
       name
@@ -16,7 +17,7 @@ const SESSION_ATTRIBUTES = gql`
 `;
 
 export const SESSIONS = gql`
-  query sessions($day: String) {
+  query sessions($day: String, $isDescription: Boolean!) {
     intro: sessions(day: $day, level: "Introductory and overview") {
       ...SessionInfo
     }

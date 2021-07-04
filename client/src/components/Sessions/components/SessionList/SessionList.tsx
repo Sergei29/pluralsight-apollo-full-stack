@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useQuery } from "@apollo/client";
 import { SESSIONS } from "../../../../graphql/queries";
-import { SessionType, LevelsStateType } from "../../../types";
+import { SessionType, LevelsStateType, Days } from "../../../types";
 import SessionItem from "../../../SessionItem";
 
 type ResponseDataType = {
@@ -11,13 +11,14 @@ type ResponseDataType = {
 };
 
 type Props = {
-  day: string;
+  day: Days;
   objLevels: LevelsStateType;
+  isDescription: boolean;
 };
 
-const SessionList: React.FC<Props> = ({ day, objLevels }) => {
+const SessionList: React.FC<Props> = ({ day, objLevels, isDescription }) => {
   const { loading, error, data } = useQuery<ResponseDataType>(SESSIONS, {
-    variables: { day },
+    variables: { day, isDescription },
   });
   const { bIntro, bIntermediate, bAdvanced } = objLevels;
 

@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { SessionType } from "../types";
+import "./session-item.css";
 
 type Props = {
   objSession: SessionType;
 };
 
 const SessionItem: React.FC<Props> = ({ objSession }) => {
-  const { title, day, room, level, startsAt, speakers } = objSession;
+  const { title, day, room, level, startsAt, speakers, description } =
+    objSession;
   return (
     <div className="col-xs-12 col-sm-6" style={{ padding: 5 }}>
       <div className="panel panel-default">
@@ -19,6 +21,14 @@ const SessionItem: React.FC<Props> = ({ objSession }) => {
           <h5>{day}</h5>
           <h5>{`Room Number: ${room}`}</h5>
           <h5>{`Starts at: ${startsAt}`}</h5>
+          {description && (
+            <details className="sessionItem__description">
+              <summary>
+                <h5 title="description">Description</h5>
+              </summary>
+              {description}
+            </details>
+          )}
         </div>
         <div className="panel-footer">
           {speakers &&

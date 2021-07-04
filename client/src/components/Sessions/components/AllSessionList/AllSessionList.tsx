@@ -12,10 +12,13 @@ type ResponseDataType = {
 
 type Props = {
   objLevels: LevelsStateType;
+  isDescription: boolean;
 };
 
-const AllSessionList: React.FC<Props> = ({ objLevels }) => {
-  const { loading, error, data } = useQuery<ResponseDataType>(SESSIONS);
+const AllSessionList: React.FC<Props> = ({ objLevels, isDescription }) => {
+  const { loading, error, data } = useQuery<ResponseDataType>(SESSIONS, {
+    variables: { isDescription },
+  });
   const { bIntro, bIntermediate, bAdvanced } = objLevels;
 
   if (loading) return <p>Loading Sessions...</p>;
