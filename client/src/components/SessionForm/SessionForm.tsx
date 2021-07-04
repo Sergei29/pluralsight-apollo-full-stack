@@ -1,13 +1,29 @@
 import React from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, MutationUpdaterFn } from "@apollo/client";
 import { Formik, Field, Form } from "formik";
 import { CREATE_SESSION } from "../../graphql/mutations";
 import { SESSIONS } from "../../graphql/queries";
-import { SessionInputType, SessionType } from "../types";
+import { SessionInputType } from "../types";
 
 const SessionForm: React.FC = () => {
   /* ---> Call useMutation hook here to create new session and update cache */
-  const [createSession, objResponse] = useMutation(CREATE_SESSION);
+  const updateSessions: MutationUpdaterFn = (cache, { data }) => {
+    cache.modify({
+      fields: {
+        sessions: (exisitingSessions = []) => {
+          const newSession = data!.addNewSession;
+          cache.writeQuery({
+            query: SESSIONS,
+            data: { newSession, ...exisitingSessions },
+          });
+        },
+      },
+    });
+  };
+
+  const [createSession, objResponse] = useMutation(CREATE_SESSION, {
+    update: updateSessions,
+  });
 
   return (
     <div
@@ -32,27 +48,6 @@ const SessionForm: React.FC = () => {
           /* ---> Call useMutation mutate function here to create new session */
           createSession({
             variables: { session: { ...objFormValues } },
-            update: (cache, { data: { addNewSession } }) => {
-              const sessions: Record<string, SessionType[]> | null =
-                cache.readQuery({
-                  query: SESSIONS,
-                  variables: {
-                    day: objFormValues.day,
-                    level: objFormValues.level,
-                    isDescription: true,
-                  },
-                });
-
-              cache.writeQuery({
-                query: SESSIONS,
-                variables: {
-                  day: objFormValues.day,
-                  level: objFormValues.level,
-                  isDescription: true,
-                },
-                data: [...sessions!.intermediate, addNewSession],
-              });
-            },
           });
         }}
       >

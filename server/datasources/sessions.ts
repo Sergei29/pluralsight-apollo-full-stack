@@ -24,7 +24,7 @@ class SessionAPI extends DataSource {
   };
 
   addSession = (session: Record<string, any>) => {
-    session.id = 12;
+    session.id = Date.now();
     sessions.push(session);
     return session;
   };
