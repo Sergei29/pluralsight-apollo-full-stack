@@ -11,8 +11,9 @@ type ResponseDataType = {
 
 const SpeakerList: React.FC = () => {
   const { loading, error, data } = useQuery<ResponseDataType>(SPEAKERS);
-  const [markFeatured, { called, error: markError, loading: markLoading }] =
-    useMutation(MARK_SPEAKER_FEATURED);
+  const [markFeatured, { loading: markLoading }] = useMutation(
+    MARK_SPEAKER_FEATURED
+  );
 
   const handleMarkFeatured =
     (speakerId: string, featured: boolean) => async () => {

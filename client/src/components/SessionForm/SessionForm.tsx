@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, MutationUpdaterFn } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Formik, Field, Form } from "formik";
 import { CREATE_SESSION } from "../../graphql/mutations";
 import { SESSIONS } from "../../graphql/queries";
@@ -7,26 +7,27 @@ import { SessionInputType } from "../types";
 
 const SessionForm: React.FC = () => {
   /* ---> Call useMutation hook here to create new session and update cache */
-  const updateSessions: MutationUpdaterFn = (cache, { data }) => {
-    cache.modify({
-      fields: {
-        sessions: (exisitingSessions = []) => {
-          const newSession = data!.addNewSession;
-          cache.writeQuery({
-            query: SESSIONS,
-            data: { newSession, ...exisitingSessions },
-          });
-        },
+  const [createSession, { called, error, data: responseData }] =
+    useMutation(CREATE_SESSION);
+
+  const handleCreateSession = (objFormValues: SessionInputType) => {
+    createSession({
+      variables: { session: { ...objFormValues } },
+      update: (cache, { data }) => {
+        cache.modify({
+          fields: {
+            sessions: (exisitingSessions = []) => {
+              const newSession = data!.addNewSession;
+              cache.writeQuery({
+                query: SESSIONS,
+                data: { newSession, ...exisitingSessions },
+              });
+            },
+          },
+        });
       },
     });
   };
-
-  const [createSession, { called, error, data: responseData }] = useMutation(
-    CREATE_SESSION,
-    {
-      update: updateSessions,
-    }
-  );
 
   if (called && responseData) return <p>Session submitted successfully.</p>;
   if (error) return <p>Failed to submit new session.</p>;
@@ -52,9 +53,7 @@ const SessionForm: React.FC = () => {
         }
         onSubmit={async (objFormValues) => {
           /* ---> Call useMutation mutate function here to create new session */
-          createSession({
-            variables: { session: { ...objFormValues } },
-          });
+          handleCreateSession(objFormValues);
         }}
       >
         {() => (
