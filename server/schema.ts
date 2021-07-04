@@ -34,6 +34,7 @@ const typeDefs = gql`
     id: ID!
     bio: String
     name: String
+    featured: Boolean
     sessions: [Session]
   }
 
@@ -61,6 +62,7 @@ const typeDefs = gql`
   type Mutation {
     toggleFavoriteSession(id: ID!): Session
     addNewSession(session: SessionInput!): Session
+    markFeatured(speakerId: ID!, featured: Boolean!): Speaker
   }
 `;
 

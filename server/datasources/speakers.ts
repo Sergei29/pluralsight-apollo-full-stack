@@ -14,6 +14,11 @@ class SpeakerAPI extends RESTDataSource {
   async getSpeakerById(id: string) {
     return await this.get(`/${id}`);
   }
+
+  async markFeatured(speakerId: string, featured: boolean) {
+    const newSpeaker = await this.patch(`/${speakerId}`, { featured });
+    return newSpeaker;
+  }
 }
 
 export default SpeakerAPI;
