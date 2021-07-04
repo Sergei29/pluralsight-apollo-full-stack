@@ -27,6 +27,7 @@ const typeDefs = gql`
     format: String
     track: String
     favorite: Boolean
+    level: String
   }
 
   type Speaker {

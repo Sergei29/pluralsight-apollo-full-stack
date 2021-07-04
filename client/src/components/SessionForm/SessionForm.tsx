@@ -1,8 +1,13 @@
 import React from "react";
+import { useMutation } from "@apollo/client";
 import { Formik, Field, Form } from "formik";
+import { CREATE_SESSION } from "../../graphql/mutations";
+import { SESSIONS } from "../../graphql/queries";
+import { SessionInputType, SessionType } from "../types";
 
 const SessionForm: React.FC = () => {
   /* ---> Call useMutation hook here to create new session and update cache */
+  const [createSession, objResponse] = useMutation(CREATE_SESSION);
 
   return (
     <div
@@ -15,14 +20,40 @@ const SessionForm: React.FC = () => {
       }}
     >
       <Formik
-        initialValues={{
-          title: "",
-          description: "",
-          day: "",
-          level: "",
-        }}
-        onSubmit={() => {
+        initialValues={
+          {
+            title: "",
+            description: "",
+            day: "",
+            level: "",
+          } as SessionInputType
+        }
+        onSubmit={async (objFormValues) => {
           /* ---> Call useMutation mutate function here to create new session */
+          createSession({
+            variables: { session: { ...objFormValues } },
+            update: (cache, { data: { addNewSession } }) => {
+              const sessions: Record<string, SessionType[]> | null =
+                cache.readQuery({
+                  query: SESSIONS,
+                  variables: {
+                    day: objFormValues.day,
+                    level: objFormValues.level,
+                    isDescription: true,
+                  },
+                });
+
+              cache.writeQuery({
+                query: SESSIONS,
+                variables: {
+                  day: objFormValues.day,
+                  level: objFormValues.level,
+                  isDescription: true,
+                },
+                data: [...sessions!.intermediate, addNewSession],
+              });
+            },
+          });
         }}
       >
         {() => (

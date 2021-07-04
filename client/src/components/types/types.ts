@@ -1,8 +1,10 @@
 import { SpeakerFullType } from "./speakers";
-import { SessionFullType } from "./sessions";
+import { SessionFullType, SessionFullInputType } from "./sessions";
 
 export type SessionType = Partial<SessionFullType>;
 export type SpeakerType = Partial<SpeakerFullType>;
+export type SessionInputType = Partial<SessionFullInputType>;
+
 export type LevelsStateType = {
   bIntro: boolean;
   bIntermediate: boolean;
