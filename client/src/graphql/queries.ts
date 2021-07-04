@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SESSION_ATTRIBUTES = gql`
+export const SESSION_ATTRIBUTES = gql`
   fragment SessionInfo on Session {
     id
     title
@@ -8,7 +8,7 @@ const SESSION_ATTRIBUTES = gql`
     room
     level
     startsAt
-    description @include(if: $isDescription)
+    description
     speakers {
       id
       name
@@ -20,22 +20,26 @@ export const SESSIONS = gql`
   query sessions($day: String, $isDescription: Boolean!) {
     intro: sessions(day: $day, level: "Introductory and overview") {
       ...SessionInfo
+      description @include(if: $isDescription)
     }
     intermediate: sessions(day: $day, level: "Intermediate") {
       ...SessionInfo
+      description @include(if: $isDescription)
     }
     advanced: sessions(day: $day, level: "Advanced") {
       ...SessionInfo
+      description @include(if: $isDescription)
     }
   }
   ${SESSION_ATTRIBUTES}
 `;
 
-const SPEAKER_ATTRIBUTES = gql`
+export const SPEAKER_ATTRIBUTES = gql`
   fragment SpeakerInfo on Speaker {
     id
     bio
     name
+    featured
     sessions {
       id
       title

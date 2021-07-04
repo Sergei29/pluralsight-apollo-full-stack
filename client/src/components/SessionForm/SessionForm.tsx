@@ -21,11 +21,14 @@ const SessionForm: React.FC = () => {
     });
   };
 
-  const [createSession, { called, error }] = useMutation(CREATE_SESSION, {
-    update: updateSessions,
-  });
+  const [createSession, { called, error, data: responseData }] = useMutation(
+    CREATE_SESSION,
+    {
+      update: updateSessions,
+    }
+  );
 
-  if (called) return <p>Session submitted successfully.</p>;
+  if (called && responseData) return <p>Session submitted successfully.</p>;
   if (error) return <p>Failed to submit new session.</p>;
 
   return (

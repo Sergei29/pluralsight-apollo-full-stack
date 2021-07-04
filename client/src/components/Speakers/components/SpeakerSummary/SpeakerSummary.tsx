@@ -7,7 +7,15 @@ type Props = {
 
 type HeaderProps = { name: string };
 type BioProps = { bio: string };
-type SessonsProps = { sessions: Record<string, any>[]; featured: boolean };
+type SessonsProps = {
+  sessions: Record<string, any>[];
+  children: React.ReactNode;
+};
+type MarkButtonProps = {
+  featured: boolean;
+  handleMarkFeatured: () => Promise<void>;
+  bDisableMarkButton: boolean;
+};
 
 const Header = ({ name }: HeaderProps) => (
   <div className="panel-heading">
@@ -21,7 +29,31 @@ const Bio = ({ bio }: BioProps) => (
   </div>
 );
 
-const Sessions = ({ sessions, featured }: SessonsProps) => (
+const MarkButton = ({
+  handleMarkFeatured,
+  featured,
+  bDisableMarkButton,
+}: MarkButtonProps) => (
+  <span>
+    <button
+      type="button"
+      className="btn btn-default btn-lg"
+      onClick={handleMarkFeatured}
+      disabled={bDisableMarkButton}
+    >
+      <i
+        className={`fa ${featured ? "fa-star" : "fa-star-o"}`}
+        aria-hidden="true"
+        style={{
+          color: featured ? "gold" : undefined,
+        }}
+      ></i>{" "}
+      Featured Speaker
+    </button>
+  </span>
+);
+
+const Sessions = ({ sessions, children }: SessonsProps) => (
   <div className="panel-footer speakerItem__footer">
     <h4>Sessions</h4>
     {sessions?.map((objSession) => (
@@ -29,26 +61,10 @@ const Sessions = ({ sessions, featured }: SessonsProps) => (
         {objSession.title}
       </p>
     ))}
-    <span>
-      <button
-        type="button"
-        className="btn btn-default btn-lg"
-        onClick={() => {
-          /* ---> Call useMutation's mutate function to mark speaker as featured */
-        }}
-      >
-        <i
-          className={`fa ${featured ? "fa-star" : "fa-star-o"}`}
-          aria-hidden="true"
-          style={{
-            color: featured ? "gold" : undefined,
-          }}
-        ></i>{" "}
-        Featured Speaker
-      </button>
-    </span>
+    {children}
   </div>
 );
+Sessions.MarkButton = MarkButton;
 
 const SpeakerSummary = ({ children }: Props) => {
   return (
