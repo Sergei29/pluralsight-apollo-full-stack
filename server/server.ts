@@ -1,9 +1,12 @@
 import { ApolloServer, ServerInfo } from "apollo-server";
+import dotenv from "dotenv";
 import SessionDataSource from "./datasources/sessions";
 import SpeakerDataSource from "./datasources/speakers";
 import UserDataSource from "./datasources/users";
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
+
+dotenv.config();
 
 const port = process.env.PORT || 4000;
 

@@ -7,8 +7,8 @@ import FileSync from "lowdb/adapters/FileSync";
 const { groupBy } = _;
 
 const adapter = new FileSync("./server/data/users.json");
-const db = low(adapter);
-db._.mixin(lodashId);
+const lowDB = low(adapter);
+lowDB._.mixin(lodashId);
 
 class UserDataSource extends DataSource {
   db: any;
@@ -18,7 +18,7 @@ class UserDataSource extends DataSource {
   }
 
   initialize(config: Record<string, any>) {
-    this.db = db.get("users");
+    this.db = lowDB.get("users");
   }
 
   getUsers(args: Record<string, any>) {

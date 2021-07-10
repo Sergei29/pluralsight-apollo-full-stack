@@ -39,6 +39,11 @@
       "email": "test_user123@gmail.com",
       "hash": "$2a$10$Zm0cM/KB8fP2xWZPWPmS1.n3M7hvsrcSMdwZgIcT3cTmeDCZk1Rta",
       "id": "52b29b88-5fd5-42bf-a4d5-34a229a609da"
+    },
+    {
+      "email": "serge29@gmail.com",
+      "hash": "$2a$10$RxEGC3kFQwNl79c2g35sR.xWGkpvL3HjXLq3yELXdD9XTeuqZ0bW6",
+      "id": "84cb44cd-6356-426e-869a-f75fdbe5150b"
     }
   ]
 }
