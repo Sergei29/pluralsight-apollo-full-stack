@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import ApolloProvider from "./graphql/ApolloProvider";
+import AuthProvider from "./graphql/AuthProvider";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
@@ -10,7 +11,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider>
       <BrowserRouter>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,

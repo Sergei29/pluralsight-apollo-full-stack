@@ -7,6 +7,7 @@ import { OurStory } from "./pages/OurStory/OurStory";
 import { Robotics } from "./pages/robotics/Robotics";
 import { Conference } from "./pages/conference/Conference";
 import { Home } from "./pages/home/Home";
+import Auth from "./pages/auth/Auth";
 
 const App: React.FC = () => {
   return (
@@ -25,8 +26,11 @@ const App: React.FC = () => {
         <Route path="/conference">
           <Conference />
         </Route>
-        <Route path="/">
+        <Route path="/" exact>
           <Home />
+        </Route>
+        <Route path="/auth">
+          <Auth />
         </Route>
       </Switch>
       <Footer />

@@ -66,7 +66,16 @@ const Header: React.FC = () => (
 
       <div className="sign-in col-md-2">
         <span className="dvider"></span>
-        <div className="sign"></div>
+        <div className="sign">
+          <Link to="/auth/sign-in">
+            <img
+              className="sign-in-img"
+              src="images/avatar.svg"
+              alt="sign-in"
+            />
+            Sign-in
+          </Link>
+        </div>
       </div>
     </div>
   </header>
