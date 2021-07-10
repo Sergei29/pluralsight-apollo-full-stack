@@ -35,6 +35,15 @@ class SpeakerDataSource extends DataSource {
   //   });
   //   return data;
   // }
+
+  async markFeatured(speakerId: string, featured: boolean) {
+    const data = this.db
+      .get("speakers")
+      .find({ id: speakerId })
+      .assign({ featured })
+      .write();
+    return data;
+  }
 }
 
 export default SpeakerDataSource;

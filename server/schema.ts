@@ -75,6 +75,7 @@ const typeDefs = gql`
     toggleFavoriteSession(id: ID): Session
     signUp(credentials: Credentials!): AuthPayload
     signIn(credentials: Credentials!): AuthPayload
+    markFeatured(speakerId: ID!, featured: Boolean!): Speaker
   }
 `;
 

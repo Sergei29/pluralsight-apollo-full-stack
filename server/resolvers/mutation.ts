@@ -16,6 +16,13 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     );
     return speaker;
   },
+
+  markFeatured: async (parent, args, { dataSources }, info) => {
+    return dataSources.speakerDataSource.markFeatured(
+      args.speakerId,
+      args.featured
+    );
+  },
 };
 
 export default Mutation;

@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 import { SPEAKER_ATTRIBUTES, SESSION_ATTRIBUTES } from "./queries";
 
 export const CREATE_SESSION = gql`
-  mutation AddNewSession($session: SessionInput!) {
-    addNewSession(session: $session) {
+  mutation CreateSession($session: SessionInput!) {
+    createSession(session: $session) {
       ...SessionInfo
     }
   }
