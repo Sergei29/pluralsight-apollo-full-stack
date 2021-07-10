@@ -1,9 +1,11 @@
-import SessionAPI from "./datasources/sessions";
-import SpeakerAPI from "./datasources/speakers";
+import SessionDataSource from "./datasources/sessions";
+import SpeakerDataSource from "./datasources/speakers";
+import UserDataSource from "./datasources/users";
 
 export type DataSourcesType = {
-  SessionAPI: InstanceType<typeof SessionAPI>;
-  SpeakerAPI: InstanceType<typeof SpeakerAPI>;
+  sessionDataSource: InstanceType<typeof SessionDataSource>;
+  speakerDataSource: InstanceType<typeof SpeakerDataSource>;
+  userDataSource: InstanceType<typeof UserDataSource>;
 };
 
 export type ContextType = { dataSources: DataSourcesType };

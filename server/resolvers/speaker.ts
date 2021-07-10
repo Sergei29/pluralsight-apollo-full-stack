@@ -3,11 +3,13 @@ import _ from "lodash";
 import { ContextType } from "../types";
 
 const Speaker: Record<string, IFieldResolver<any, ContextType>> = {
-  sessions: async (speaker, args, { dataSources }, info) => {
-    const sessions = await dataSources.SessionAPI.getSessions(args);
-    const returns = sessions.filter((objSession: Record<string, any>) => {
-      return _.filter(objSession.speakers, { id: speaker.id }).length > 0;
+  async sessions(speaker, args, { dataSources }) {
+    const sessions = await dataSources.sessionDataSource.getSessions(args);
+
+    const returns = sessions.filter((session: Record<string, any>) => {
+      return _.filter(speaker.sessions, { id: session.id }).length > 0;
     });
+
     return returns;
   },
 };

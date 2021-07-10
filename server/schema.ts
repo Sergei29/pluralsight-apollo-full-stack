@@ -1,6 +1,21 @@
 import { gql } from "apollo-server";
 
 const typeDefs = gql`
+  input SessionInput {
+    title: String!
+    description: String
+    format: String
+    level: String
+  }
+
+  type Speaker {
+    id: ID!
+    bio: String
+    name: String
+    featured: Boolean
+    sessions: [Session]
+  }
+
   type Session {
     id: ID!
     title: String!
@@ -11,31 +26,12 @@ const typeDefs = gql`
     day: String
     format: String
     track: String
-      @deprecated(reason: "the field will not be in use very soon...")
+      @deprecated(
+        reason: "Too many sessions do not fit into a single track, we will be migrating to a tags based system in the future..."
+      )
     level: String
-    favorite: Boolean
     speakers: [Speaker]
-  }
-
-  input SessionInput {
-    title: String!
-    description: String
-    startsAt: String
-    endsAt: String
-    room: String
-    day: String
-    format: String
-    track: String
     favorite: Boolean
-    level: String
-  }
-
-  type Speaker {
-    id: ID!
-    bio: String
-    name: String
-    featured: Boolean
-    sessions: [Session]
   }
 
   type Query {
@@ -50,19 +46,35 @@ const typeDefs = gql`
       format: String
       track: String
       level: String
+      favorite: Boolean
     ): [Session]
-
-    sessionById(id: ID!): Session
-
+    sessionById(id: ID): Session
     speakers: [Speaker]
+    speakerById(id: ID): Speaker
+    users: [User]
+    userById(id: ID): User
+  }
 
-    speakerById(id: ID!): Speaker
+  type User {
+    id: String!
+    email: String!
+  }
+
+  input Credentials {
+    email: String!
+    password: String!
+  }
+
+  type AuthPayload {
+    token: String
+    user: User
   }
 
   type Mutation {
-    toggleFavoriteSession(id: ID!): Session
-    addNewSession(session: SessionInput!): Session
-    markFeatured(speakerId: ID!, featured: Boolean!): Speaker
+    createSession(session: SessionInput): Session
+    toggleFavoriteSession(id: ID): Session
+    signUp(credentials: Credentials!): AuthPayload
+    signIn(credentials: Credentials!): AuthPayload
   }
 `;
 
