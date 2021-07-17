@@ -1,7 +1,6 @@
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import cookieParser from "cookie-parser";
-import cors from "cors";
 import dotenv from "dotenv";
 import SessionDataSource from "./datasources/sessions";
 import SpeakerDataSource from "./datasources/speakers";
@@ -29,7 +28,9 @@ const server = new ApolloServer({
   dataSources,
   context: ({ req, res }) => {
     let user: TokenPayloadType | null | string = null;
-
+    /**
+     * @description decode request cookie token to get user data, set it into context
+     */
     if (req.cookies.token) {
       const userDecodedData = verifyToken(req.cookies.token);
       user = userDecodedData;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   ApolloClient,
   InMemoryCache,
@@ -6,7 +6,6 @@ import {
   HttpLink,
   InMemoryCacheConfig,
 } from "@apollo/client";
-import { AuthContext } from "./AuthProvider";
 
 const objCacheConfig: InMemoryCacheConfig = {};
 
@@ -16,8 +15,6 @@ const objCacheConfig: InMemoryCacheConfig = {};
  * @returns {JSX} application components with provided client instance
  */
 const ApolloProvider: React.FC = ({ children }) => {
-  const { authInfo } = useContext(AuthContext);
-
   const client = new ApolloClient({
     link: new HttpLink({
       uri:

@@ -40,3 +40,14 @@ export const SIGN_IN = gql`
     }
   }
 `;
+
+export const USER_INFO = gql`
+  mutation UserInfo {
+    userInfo {
+      user {
+        id
+        email
+      }
+    }
+  }
+`;

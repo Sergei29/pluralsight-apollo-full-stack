@@ -8,31 +8,37 @@ import { Robotics } from "./pages/robotics/Robotics";
 import { Conference } from "./pages/conference/Conference";
 import { Home } from "./pages/home/Home";
 import Auth from "./pages/auth/Auth";
+import useAppInit from "./hooks/useAppInit";
 
 const App: React.FC = () => {
+  const { loading } = useAppInit();
   return (
     <div id="wrapper">
       <Header />
-      <Switch>
-        <Route path="/media">
-          <Media />
-        </Route>
-        <Route path="/our-story">
-          <OurStory />
-        </Route>
-        <Route path="/robotics">
-          <Robotics />
-        </Route>
-        <Route path="/conference">
-          <Conference />
-        </Route>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/auth">
-          <Auth />
-        </Route>
-      </Switch>
+      {loading ? (
+        <p>loading user info...</p>
+      ) : (
+        <Switch>
+          <Route path="/media">
+            <Media />
+          </Route>
+          <Route path="/our-story">
+            <OurStory />
+          </Route>
+          <Route path="/robotics">
+            <Robotics />
+          </Route>
+          <Route path="/conference">
+            <Conference />
+          </Route>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/auth">
+            <Auth />
+          </Route>
+        </Switch>
+      )}
       <Footer />
     </div>
   );

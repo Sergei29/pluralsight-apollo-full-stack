@@ -49,7 +49,7 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     });
 
     const token = createToken(newUser);
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 12 });
 
     return {
       user: {
@@ -81,7 +81,7 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     const token = createToken(existingUser);
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 31,
+      maxAge: 1000 * 60 * 60 * 12,
     });
 
     return {
@@ -90,6 +90,15 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
         email: existingUser.email,
       },
     };
+  },
+
+  userInfo: async (parent, args, { dataSources, user }, info) => {
+    if (user) {
+      return {
+        user: { id: user.sub, email: user.email },
+      };
+    }
+    return { user: undefined };
   },
 };
 
