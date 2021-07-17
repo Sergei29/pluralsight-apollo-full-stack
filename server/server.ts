@@ -1,4 +1,6 @@
-import { ApolloServer, ServerInfo } from "apollo-server";
+import { ApolloServer } from "apollo-server-express";
+import express from "express";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import SessionDataSource from "./datasources/sessions";
 import SpeakerDataSource from "./datasources/speakers";
@@ -11,6 +13,8 @@ import { TokenPayloadType } from "./types";
 dotenv.config();
 
 const port = process.env.PORT || 4000;
+const app = express();
+app.use(cookieParser());
 
 const dataSources = () => ({
   sessionDataSource: new SessionDataSource(),
@@ -22,17 +26,19 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources,
-  context: ({ req }) => {
+  context: ({ req, res }) => {
     let user: TokenPayloadType | null | string = null;
 
-    if (req.headers.authorization) {
-      const userDecodedData = verifyToken(req.headers.authorization);
+    if (req.cookies.token) {
+      const userDecodedData = verifyToken(req.cookies.token);
       user = userDecodedData;
     }
-    return { user };
+    return { user, res };
   },
 });
 
-server.listen({ port }).then(({ url }: ServerInfo) => {
-  console.log(`Server running at ${url}`);
+server.applyMiddleware({ app });
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}/`);
 });

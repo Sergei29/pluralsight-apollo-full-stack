@@ -1,7 +1,8 @@
+import express from "express";
+import { JwtPayload } from "jsonwebtoken";
 import SessionDataSource from "./datasources/sessions";
 import SpeakerDataSource from "./datasources/speakers";
 import UserDataSource from "./datasources/users";
-import { JwtPayload } from "jsonwebtoken";
 
 export type TokenPayloadType = {
   email?: string;
@@ -16,4 +17,5 @@ export type DataSourcesType = {
 export type ContextType = {
   dataSources: DataSourcesType;
   user: null | TokenPayloadType;
+  res: express.Response<any, Record<string, any>>;
 };

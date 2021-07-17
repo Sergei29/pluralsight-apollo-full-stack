@@ -31,7 +31,7 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     );
   },
 
-  signUp: async (parent, { credentials }, { dataSources }, info) => {
+  signUp: async (parent, { credentials }, { dataSources, res }, info) => {
     const { email, password } = credentials;
     const userCredentials = { email: email.toLowerCase(), password };
 
@@ -49,9 +49,9 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     });
 
     const token = createToken(newUser);
+    res.cookie("token", token, { httpOnly: true });
 
     return {
-      token,
       user: {
         id: newUser.id,
         email: newUser.email,
@@ -59,7 +59,7 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     };
   },
 
-  signIn: async (parent, { credentials }, { dataSources }, info) => {
+  signIn: async (parent, { credentials }, { dataSources, res }, info) => {
     const { email, password } = credentials;
     const userCredentials = { email: email.toLowerCase(), password };
 
@@ -79,9 +79,9 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     }
 
     const token = createToken(existingUser);
+    res.cookie("token", token, { httpOnly: true });
 
     return {
-      token,
       user: {
         id: existingUser.id,
         email: existingUser.email,
