@@ -17,7 +17,6 @@ const objCacheConfig: InMemoryCacheConfig = {};
  */
 const ApolloProvider: React.FC = ({ children }) => {
   const { authInfo } = useContext(AuthContext);
-  const { token } = authInfo;
 
   const client = new ApolloClient({
     link: new HttpLink({
@@ -25,7 +24,6 @@ const ApolloProvider: React.FC = ({ children }) => {
         process.env.NODE_ENV === "development"
           ? "http://localhost:4000/graphql"
           : "/graphql",
-      headers: token ? { authorization: token } : undefined,
     }),
     cache: new InMemoryCache(objCacheConfig),
     connectToDevTools: process.env.NODE_ENV === "development",

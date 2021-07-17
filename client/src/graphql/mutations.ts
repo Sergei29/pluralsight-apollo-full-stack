@@ -22,7 +22,6 @@ export const MARK_SPEAKER_FEATURED = gql`
 export const SIGN_UP = gql`
   mutation SignUp($email: String!, $password: String!) {
     signUp(credentials: { email: $email, password: $password }) {
-      token
       user {
         id
         email
@@ -34,7 +33,6 @@ export const SIGN_UP = gql`
 export const SIGN_IN = gql`
   mutation SignIn($email: String!, $password: String!) {
     signIn(credentials: { email: $email, password: $password }) {
-      token
       user {
         id
         email

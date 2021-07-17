@@ -1,8 +1,7 @@
 import React, { createContext, useState } from "react";
 
 type StateType = {
-  token: null | string;
-  userInfo: { email?: string; id?: string };
+  userInfo: { email?: string; id?: string } | null;
 };
 
 type ContextType = {
@@ -13,8 +12,7 @@ type ContextType = {
 
 export const AuthContext = createContext<ContextType>({
   authInfo: {
-    token: null,
-    userInfo: {},
+    userInfo: null,
   },
   setAuthInfo: () => {},
   isAuthenticated: () => true,
@@ -24,11 +22,10 @@ const Provider = AuthContext.Provider;
 
 const AuthProvider: React.FC = ({ children }) => {
   const [authInfo, setAuthInfo] = useState<StateType>({
-    token: null,
-    userInfo: {},
+    userInfo: null,
   });
 
-  const isAuthenticated = () => authInfo.token !== null;
+  const isAuthenticated = () => authInfo.userInfo !== null;
 
   return (
     <Provider value={{ authInfo, setAuthInfo, isAuthenticated }}>

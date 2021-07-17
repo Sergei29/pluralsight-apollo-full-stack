@@ -12,8 +12,8 @@ const SignUpForm = () => {
 
   const handleSubmit = async (values: Record<string, any>) => {
     const response = await signUpUser({ variables: values });
-    const { token, user: userInfo } = response.data.signIn;
-    setAuthInfo({ token, userInfo });
+    const { user: userInfo } = response.data.signIn;
+    setAuthInfo({ userInfo });
   };
 
   return (
