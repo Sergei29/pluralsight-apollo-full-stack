@@ -1,6 +1,7 @@
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import dotenv from "dotenv";
 import SessionDataSource from "./datasources/sessions";
 import SpeakerDataSource from "./datasources/speakers";
@@ -37,7 +38,8 @@ const server = new ApolloServer({
   },
 });
 
-server.applyMiddleware({ app });
+const corsOptions = { credentials: true, origin: "http://localhost:3000" };
+server.applyMiddleware({ app, cors: corsOptions });
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/graphql`);

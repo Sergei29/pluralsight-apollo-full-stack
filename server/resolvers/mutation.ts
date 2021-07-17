@@ -79,7 +79,10 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     }
 
     const token = createToken(existingUser);
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 31,
+    });
 
     return {
       user: {

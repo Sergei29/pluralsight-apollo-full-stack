@@ -24,10 +24,10 @@ const ApolloProvider: React.FC = ({ children }) => {
         process.env.NODE_ENV === "development"
           ? "http://localhost:4000/graphql"
           : "/graphql",
+      credentials: "include",
     }),
     cache: new InMemoryCache(objCacheConfig),
     connectToDevTools: process.env.NODE_ENV === "development",
-    credentials: "same-origin",
   });
 
   return <ApolloProviderHOC client={client}>{children}</ApolloProviderHOC>;
