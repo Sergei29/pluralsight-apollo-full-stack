@@ -9,13 +9,13 @@ import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider>
-      <BrowserRouter>
-        <AuthProvider>
+    <AuthProvider>
+      <ApolloProvider>
+        <BrowserRouter>
           <App />
-        </AuthProvider>
-      </BrowserRouter>
-    </ApolloProvider>
+        </BrowserRouter>
+      </ApolloProvider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

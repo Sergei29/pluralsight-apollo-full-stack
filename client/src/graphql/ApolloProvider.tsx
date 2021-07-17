@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   ApolloClient,
   InMemoryCache,
@@ -6,31 +6,32 @@ import {
   HttpLink,
   InMemoryCacheConfig,
 } from "@apollo/client";
+import { AuthContext } from "./AuthProvider";
 
-const getClient = (objCacheCongig: InMemoryCacheConfig = {}) =>
-  new ApolloClient({
+const objCacheConfig: InMemoryCacheConfig = {};
+
+/**
+ * @description Apollo instance provider for the application
+ * @param {Node} {children nested app components}
+ * @returns {JSX} application components with provided client instance
+ */
+const ApolloProvider: React.FC = ({ children }) => {
+  const { authInfo } = useContext(AuthContext);
+  const { token } = authInfo;
+
+  const client = new ApolloClient({
     link: new HttpLink({
       uri:
         process.env.NODE_ENV === "development"
           ? "http://localhost:4000/graphql"
           : "/graphql",
+      headers: token ? { authorization: token } : undefined,
     }),
-    cache: new InMemoryCache(objCacheCongig),
+    cache: new InMemoryCache(objCacheConfig),
     connectToDevTools: process.env.NODE_ENV === "development",
     credentials: "same-origin",
   });
 
-type Props = {
-  children: React.ReactNode;
-};
-
-/**
- * @description Apollo instance provider for the application
- * @param {Node} {children nested children components}
- * @returns {JSX} application components with provided client instance
- */
-const ApolloProvider: React.FC<Props> = ({ children }) => {
-  const client = getClient();
   return <ApolloProviderHOC client={client}>{children}</ApolloProviderHOC>;
 };
 
