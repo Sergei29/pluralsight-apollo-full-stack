@@ -6,6 +6,7 @@ const typeDefs = gql`
     description: String
     format: String
     level: String
+    day: String
   }
 
   type Speaker {

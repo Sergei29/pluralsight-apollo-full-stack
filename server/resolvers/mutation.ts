@@ -1,12 +1,7 @@
 import { IFieldResolver, ApolloError } from "apollo-server";
 import _ from "lodash";
 import { ContextType } from "../types";
-import {
-  hashPassword,
-  createToken,
-  verifyPassword,
-  verifyToken,
-} from "../utils/auth";
+import { hashPassword, createToken, verifyPassword } from "../utils/auth";
 
 const errors = {
   USER_EXISTS: "User with this email already exists.",
@@ -14,7 +9,8 @@ const errors = {
 };
 
 const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
-  createSession: async (parent, args, { dataSources }, info) => {
+  createSession: async (parent, args, { dataSources, user }, info) => {
+    if (!user) return null;
     const session = await dataSources.sessionDataSource.createSession(
       args.session
     );

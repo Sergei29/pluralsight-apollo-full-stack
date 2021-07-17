@@ -3623,6 +3623,13 @@
       "format": "Session",
       "level": "Beginner",
       "id": "c8b0084f-ca92-4d64-8946-9aa27f7be438"
+    },
+    {
+      "title": "Learn Context Api",
+      "description": "Learn to useContext and useReducer hooks pattern",
+      "level": "Intermediate",
+      "day": "Wednesday",
+      "id": "15251665-763d-4838-b432-a79953590c28"
     }
   ]
 }

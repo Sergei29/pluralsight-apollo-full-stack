@@ -1,6 +1,11 @@
 import SessionDataSource from "./datasources/sessions";
 import SpeakerDataSource from "./datasources/speakers";
 import UserDataSource from "./datasources/users";
+import { JwtPayload } from "jsonwebtoken";
+
+export type TokenPayloadType = {
+  email?: string;
+} & JwtPayload;
 
 export type DataSourcesType = {
   sessionDataSource: InstanceType<typeof SessionDataSource>;
@@ -8,4 +13,7 @@ export type DataSourcesType = {
   userDataSource: InstanceType<typeof UserDataSource>;
 };
 
-export type ContextType = { dataSources: DataSourcesType };
+export type ContextType = {
+  dataSources: DataSourcesType;
+  user: null | TokenPayloadType;
+};
