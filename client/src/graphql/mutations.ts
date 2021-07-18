@@ -41,6 +41,17 @@ export const SIGN_IN = gql`
   }
 `;
 
+export const SIGN_OUT = gql`
+  mutation SignOut {
+    signOut {
+      user {
+        id
+        email
+      }
+    }
+  }
+`;
+
 export const USER_INFO = gql`
   mutation UserInfo {
     userInfo {

@@ -79,6 +79,9 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     }
 
     const token = createToken(existingUser);
+    /**
+     * @description setting set-cookie instruction into the response header
+     */
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 12,
@@ -92,13 +95,25 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     };
   },
 
-  userInfo: async (parent, args, { dataSources, user }, info) => {
+  userInfo: async (parent, args, { user }, info) => {
     if (user) {
       return {
         user: { id: user.sub, email: user.email },
       };
     }
+
     return { user: undefined };
+  },
+
+  signOut: async (parent, args, { res }, info) => {
+    /**
+     * @description setting clear-cookie instruction into the response header
+     */
+    res.clearCookie("token");
+
+    return {
+      user: undefined,
+    };
   },
 };
 

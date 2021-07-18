@@ -77,6 +77,7 @@ const typeDefs = gql`
     signIn(credentials: Credentials!): AuthPayload
     markFeatured(speakerId: ID!, featured: Boolean!): Speaker
     userInfo: AuthPayload
+    signOut: AuthPayload
   }
 `;
 
