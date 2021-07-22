@@ -26,6 +26,12 @@ const Query: Record<string, IFieldResolver<any, ContextType>> = {
     const user = await dataSources.userDataSource.getUserById(id);
     return user;
   },
+  me: async (parent, args, { dataSources, user }, info) => {
+    if (user && user.sub) {
+      return dataSources.userDataSource.getUserById(user?.sub);
+    }
+    return undefined;
+  },
 };
 
 export default Query;

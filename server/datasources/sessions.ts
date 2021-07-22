@@ -3,7 +3,6 @@ import _ from "lodash";
 import low from "lowdb";
 import lodashId from "lodash-id";
 import FileSync from "lowdb/adapters/FileSync";
-// const sessions = require("../data/sessions.json");
 
 const adapter = new FileSync("./server/data/sessions.json");
 const db = low(adapter);
@@ -30,11 +29,6 @@ class SessionDataSource extends DataSource {
 
   createSession(session: Record<string, any>) {
     return this.db.insert(session).write();
-  }
-
-  toggleFavoriteSession(id: string) {
-    const isFavorite = Boolean(this.db.getById(id).value().favorite);
-    return this.db.getById(id).assign({ favorite: !isFavorite }).write();
   }
 }
 

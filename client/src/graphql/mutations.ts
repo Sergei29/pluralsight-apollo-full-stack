@@ -62,3 +62,15 @@ export const USER_INFO = gql`
     }
   }
 `;
+
+export const TOGGLE_FAVORITE_SESSION = gql`
+  mutation ToggleFavoriteSession($sessionId: ID!) {
+    toggleFavoriteSession(sessionId: $sessionId) {
+      id
+      email
+      favorites {
+        id
+      }
+    }
+  }
+`;

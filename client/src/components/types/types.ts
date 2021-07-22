@@ -3,6 +3,7 @@ import { SessionFullType, SessionFullInputType } from "./sessions";
 
 export type SessionType = Partial<SessionFullType>;
 export type SpeakerType = Partial<SpeakerFullType>;
+export type UserType = Partial<UserFullType>;
 export type SessionInputType = Partial<SessionFullInputType>;
 
 export type LevelsStateType = {
@@ -21,3 +22,8 @@ export enum Days {
   Thursday = "Thursday",
   Friday = "Friday",
 }
+export type UserFullType = {
+  id: string;
+  email: string;
+  favorites: SessionType[];
+};

@@ -30,6 +30,27 @@ export const SESSIONS = gql`
       ...SessionInfo
       description @include(if: $isDescription)
     }
+    user: me {
+      id
+      favorites {
+        id
+      }
+    }
+  }
+  ${SESSION_ATTRIBUTES}
+`;
+
+export const SESSION_BY_ID = gql`
+  query SessionById($id: ID!) {
+    session: sessionById(id: $id) {
+      ...SessionInfo
+    }
+    user: me {
+      id
+      favorites {
+        id
+      }
+    }
   }
   ${SESSION_ATTRIBUTES}
 `;

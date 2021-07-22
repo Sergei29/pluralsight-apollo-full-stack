@@ -17,13 +17,6 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     return session;
   },
 
-  toggleFavoriteSession: async (parent, args, { dataSources }, info) => {
-    const speaker = await dataSources.sessionDataSource.toggleFavoriteSession(
-      args.id
-    );
-    return speaker;
-  },
-
   markFeatured: async (parent, args, { dataSources }, info) => {
     return dataSources.speakerDataSource.markFeatured(
       args.speakerId,
@@ -114,6 +107,22 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     return {
       user: undefined,
     };
+  },
+
+  toggleFavoriteSession: async (
+    parent,
+    { sessionId },
+    { dataSources, user },
+    info
+  ) => {
+    if (user) {
+      const updatedUser = dataSources.userDataSource.toggleFavoriteSession(
+        sessionId,
+        user.sub!
+      );
+      return updatedUser;
+    }
+    return undefined;
   },
 };
 

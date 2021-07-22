@@ -10,7 +10,6 @@ export type SessionFullType = {
   day: string;
   format: string;
   level: string;
-  favorite: boolean;
   speakers: Partial<SpeakerFullType>[];
 };
 
@@ -23,6 +22,5 @@ export type SessionFullInputType = {
   day: string;
   format: string;
   track: string;
-  favorite: boolean;
   level: string;
 };

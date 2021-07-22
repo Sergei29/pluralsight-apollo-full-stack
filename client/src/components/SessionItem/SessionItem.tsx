@@ -1,15 +1,56 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
+import { TOGGLE_FAVORITE_SESSION } from "../../graphql/mutations";
+import { SESSIONS } from "../../graphql/queries";
+import { AuthContext } from "../../graphql/AuthProvider";
 import { SessionType } from "../types";
 import "./session-item.css";
 
 type Props = {
   objSession: SessionType;
+  favorite: boolean;
 };
 
-const SessionItem: React.FC<Props> = ({ objSession }) => {
+const SessionItem: React.FC<Props> = ({ objSession, favorite }) => {
   const { title, day, room, level, startsAt, speakers, description } =
     objSession;
+  const [toggleFavorite] = useMutation(TOGGLE_FAVORITE_SESSION);
+  const { isAuthenticated } = useContext(AuthContext);
+
+  const markFavorite = async () => {
+    await toggleFavorite({
+      variables: { sessionId: objSession.id },
+      update: (cache, { data }) => {
+        const {
+          toggleFavoriteSession: { favorites },
+        } = data;
+
+        const sessions: Record<string, any> | null =
+          cache.readQuery({
+            query: SESSIONS,
+            variables: { isDescription: true },
+          }) || {};
+
+        const updatedSessions = {
+          ...sessions,
+          user: {
+            ...sessions.user,
+            favorites,
+          },
+        };
+
+        cache.writeQuery({
+          query: SESSIONS,
+          variables: { isDescription: true },
+          data: {
+            ...updatedSessions,
+          },
+        });
+      },
+    });
+  };
+
   return (
     <div className="col-xs-12 col-sm-6" style={{ padding: 5 }}>
       <div className="panel panel-default">
@@ -31,6 +72,24 @@ const SessionItem: React.FC<Props> = ({ objSession }) => {
           )}
         </div>
         <div className="panel-footer">
+          {true === isAuthenticated() && (
+            <span style={{ padding: 2 }}>
+              <button
+                type="button"
+                className="btn btn-default btn-lg"
+                onClick={markFavorite}
+              >
+                <i
+                  className={`fa ${favorite ? "fa-star" : "fa-star-o"}`}
+                  aria-hidden="true"
+                  style={{
+                    color: favorite ? "gold" : undefined,
+                  }}
+                ></i>{" "}
+                Favorite
+              </button>
+            </span>
+          )}
           {speakers &&
             speakers.map(({ id, name }) => (
               <Link

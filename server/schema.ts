@@ -32,7 +32,6 @@ const typeDefs = gql`
       )
     level: String
     speakers: [Speaker]
-    favorite: Boolean
   }
 
   type Query {
@@ -47,18 +46,19 @@ const typeDefs = gql`
       format: String
       track: String
       level: String
-      favorite: Boolean
     ): [Session]
     sessionById(id: ID): Session
     speakers: [Speaker]
     speakerById(id: ID): Speaker
     users: [User]
     userById(id: ID): User
+    me: User
   }
 
   type User {
     id: String!
     email: String!
+    favorites: [Session!]
   }
 
   input Credentials {
@@ -72,7 +72,7 @@ const typeDefs = gql`
 
   type Mutation {
     createSession(session: SessionInput): Session
-    toggleFavoriteSession(id: ID): Session
+    toggleFavoriteSession(sessionId: ID!): User
     signUp(credentials: Credentials!): AuthPayload
     signIn(credentials: Credentials!): AuthPayload
     markFeatured(speakerId: ID!, featured: Boolean!): Speaker
