@@ -18,38 +18,10 @@ const SessionItem: React.FC<Props> = ({ objSession, favorite }) => {
   const [toggleFavorite] = useMutation(TOGGLE_FAVORITE_SESSION);
   const { isAuthenticated } = useContext(AuthContext);
 
-  const markFavorite = async () => {
+  const markFavorite = async () =>
     await toggleFavorite({
       variables: { sessionId: objSession.id },
-      update: (cache, { data }) => {
-        const {
-          toggleFavoriteSession: { favorites },
-        } = data;
-
-        const sessions: Record<string, any> | null =
-          cache.readQuery({
-            query: SESSIONS,
-            variables: { isDescription: true },
-          }) || {};
-
-        const updatedSessions = {
-          ...sessions,
-          user: {
-            ...sessions.user,
-            favorites,
-          },
-        };
-
-        cache.writeQuery({
-          query: SESSIONS,
-          variables: { isDescription: true },
-          data: {
-            ...updatedSessions,
-          },
-        });
-      },
     });
-  };
 
   return (
     <div className="col-xs-12 col-sm-6" style={{ padding: 5 }}>
