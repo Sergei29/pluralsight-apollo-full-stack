@@ -1,5 +1,7 @@
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
+import AuthLink from "../AuthLink";
+import signIn from "../../images/avatar.svg";
 
 const NavLinks: React.FC = () => (
   <ul className="navbar-nav mr-auto">
@@ -22,6 +24,17 @@ const NavLinks: React.FC = () => (
       <Link className="nav-link" to="/conference">
         Conference
       </Link>
+    </li>
+    <li className="nav-item">
+      <Link className="nav-link" to="/admin">
+        Admin
+      </Link>
+    </li>
+    <li className="nav-item auth-link">
+      <AuthLink strLinkCustomClass="nav-link">
+        <img className="sign-in-img" src={signIn} alt="sign-in" />
+        Sign-in
+      </AuthLink>
     </li>
   </ul>
 );

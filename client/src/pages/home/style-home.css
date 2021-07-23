@@ -110,6 +110,12 @@ ul.navbar-nav {
   display: inline-block;
 }
 
+@media (min-width: 1024px) {
+  .navbar-nav > li.auth-link {
+    display: none;
+  }
+}
+
 .navbar-nav > li a {
   color: #bdfef2;
   text-decoration: none;

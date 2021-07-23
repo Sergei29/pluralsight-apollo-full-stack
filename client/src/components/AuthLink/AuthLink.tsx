@@ -4,7 +4,10 @@ import { useMutation } from "@apollo/client";
 import { AuthContext } from "../../graphql/AuthProvider";
 import { SIGN_OUT } from "../../graphql/mutations";
 
-const AuthLink: React.FC = ({ children }) => {
+type Props = {
+  strLinkCustomClass?: string;
+};
+const AuthLink: React.FC<Props> = ({ children, strLinkCustomClass = "" }) => {
   const { isAuthenticated, setAuthInfo } = useContext(AuthContext);
   const [signOutUser] = useMutation(SIGN_OUT);
   const history = useHistory();
@@ -20,11 +23,13 @@ const AuthLink: React.FC = ({ children }) => {
   };
 
   return true === isAuthenticated() ? (
-    <Link onClick={handleSignOut} to="#">
+    <Link onClick={handleSignOut} to="#" className={strLinkCustomClass}>
       Sign Out
     </Link>
   ) : (
-    <Link to="/auth/sign-in">{children}</Link>
+    <Link to="/auth/sign-in" className={strLinkCustomClass}>
+      {children}
+    </Link>
   );
 };
 

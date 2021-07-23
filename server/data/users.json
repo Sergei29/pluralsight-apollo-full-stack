@@ -1,16 +1,32 @@
 {
   "users": [
     {
+      "email": "info@globomantics.com",
+      "hash": "$2a$10$thNo79kG6vggs7SS71C0S.ToUKibxHTkBxqfYr7HCeCaHEaR0.seu",
+      "role": "ADMIN",
+      "id": "cd31f124-d318-416e-9ce2-56c545dac514",
+      "favorites": [
+        "79874",
+        "85060"
+      ]
+    },
+    {
       "email": "sergejs.basangovs@gmail.com",
-      "hash": "$2a$10$11D7iJwi4M702HavGnTGYewg6rmKb1C0qlrUCC9Z5ldjfj8eX0Fa.",
+      "hash": "$2a$10$QXJ7Ch8bSarXq5kqaqjNYu8HyC3d.Kff3AMwdUvAM4SAedia9mtGa",
       "role": "USER",
-      "id": "56d2c3c1-9dfc-4888-a99b-7cd164c13071"
+      "id": "b3e374f0-7110-44f6-b814-07ed033645be",
+      "favorites": [
+        "100073"
+      ]
     },
     {
       "email": "admin@globomantics.com",
-      "hash": "$2a$10$VJ6hYGQugF8Ep2Zo38vDQuEq7ELkjHqQdbqgyf8UnVk0yLuIDY3rK",
+      "hash": "$2a$10$GUFmUBkrrPz8zyN2HIALOeyqv3M00ndjPudHCd6pmUYJFzNaotEP2",
       "role": "ADMIN",
-      "id": "3576b76a-8a45-489b-a631-ad57321bcba4"
+      "id": "9a6d9a12-7a40-4517-8506-ca81d8d6be14",
+      "favorites": [
+        "84473"
+      ]
     }
   ]
 }

@@ -1,9 +1,10 @@
-import { SessionFullType } from "./sessions";
+import { UserType, SessionType } from "./types";
 
 export type SpeakerFullType = {
   id: string;
   bio: string;
   name: string;
   featured: boolean;
-  sessions: Partial<SessionFullType>[];
+  sessions: SessionType[];
+  user: UserType;
 };

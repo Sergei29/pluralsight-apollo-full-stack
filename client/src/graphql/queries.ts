@@ -85,3 +85,21 @@ export const SPEAKER_BY_ID = gql`
   }
   ${SPEAKER_ATTRIBUTES}
 `;
+
+export const USERS = gql`
+  query Users {
+    users {
+      id
+      email
+      favorites {
+        id
+        title
+      }
+      speaker {
+        id
+        name
+        featured
+      }
+    }
+  }
+`;

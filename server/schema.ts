@@ -20,6 +20,7 @@ const typeDefs = gql`
     name: String
     featured: Boolean
     sessions: [Session]
+    user: User
   }
 
   type Session {
@@ -65,6 +66,7 @@ const typeDefs = gql`
     email: String!
     favorites: [Session!]
     role: Role
+    speaker: Speaker
   }
 
   input Credentials {

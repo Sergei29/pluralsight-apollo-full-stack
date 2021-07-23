@@ -25,6 +25,7 @@ export const SIGN_UP = gql`
       user {
         id
         email
+        role
       }
     }
   }
@@ -36,6 +37,7 @@ export const SIGN_IN = gql`
       user {
         id
         email
+        role
       }
     }
   }
@@ -58,6 +60,7 @@ export const USER_INFO = gql`
       user {
         id
         email
+        role
       }
     }
   }

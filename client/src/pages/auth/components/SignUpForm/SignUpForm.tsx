@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { SIGN_UP } from "../../../../graphql/mutations";
+import { USERS } from "../../../../graphql/queries";
 import { AuthContext } from "../../../../graphql/AuthProvider";
 import FormLayout from "../FormLayout";
 import AuthForm from "../AuthForm";
@@ -11,8 +12,11 @@ const SignUpForm = () => {
   const [signUpUser] = useMutation(SIGN_UP);
 
   const handleSubmit = async (values: Record<string, any>) => {
-    const response = await signUpUser({ variables: values });
-    const { user: userData } = response.data.signIn;
+    const response = await signUpUser({
+      variables: values,
+      refetchQueries: [{ query: USERS }],
+    });
+    const { user: userData } = response.data.signUp;
     setAuthInfo({ userData });
   };
 

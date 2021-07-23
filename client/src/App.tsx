@@ -8,6 +8,7 @@ import { Robotics } from "./pages/robotics/Robotics";
 import { Conference } from "./pages/conference/Conference";
 import { Home } from "./pages/home/Home";
 import Auth from "./pages/auth/Auth";
+import Admin from "./pages/admin";
 import useAppInit from "./hooks/useAppInit";
 
 const App: React.FC = () => {
@@ -19,6 +20,9 @@ const App: React.FC = () => {
         <p>loading user info...</p>
       ) : (
         <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
           <Route path="/media">
             <Media />
           </Route>
@@ -31,8 +35,8 @@ const App: React.FC = () => {
           <Route path="/conference">
             <Conference />
           </Route>
-          <Route path="/" exact>
-            <Home />
+          <Route path="/admin">
+            <Admin />
           </Route>
           <Route path="/auth">
             <Auth />

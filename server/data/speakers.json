@@ -22,7 +22,7 @@
         }
       ],
       "name": "Jerome Parker",
-      "featured": false
+      "featured": true
     },
     {
       "id": "aa24b5ca-5b96-4657-909e-e5be82ebf891",
@@ -1944,6 +1944,11 @@
         }
       ],
       "name": "Leslie Bates"
+    },
+    {
+      "userId": "b3e374f0-7110-44f6-b814-07ed033645be",
+      "id": "e0c9920a-59d9-48e0-9840-d1dba03740d2",
+      "featured": true
     }
   ]
 }

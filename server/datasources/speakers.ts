@@ -17,21 +17,21 @@ class SpeakerDataSource extends DataSource {
   }
 
   initialize = (config: Record<string, any>) => {
-    this.db = db;
+    this.db = db.get("speakers");
   };
 
   getSpeakerById = async (id: string) => {
-    return this.db.get("speakers").getById(id).value();
+    return await this.db.getById(id).value();
   };
 
   getSpeakers = async (args: Record<string, any>) => {
-    const data = this.db.get("speakers").filter(args).value();
+    const data = await this.db.filter(args).value();
     return data;
   };
 
   markFeatured = async (speakerId: string, featured: boolean) => {
-    const data = this.db
-      .get("speakers")
+    const data = await this.db
+
       .find({ id: speakerId })
       .assign({ featured })
       .write();
@@ -39,7 +39,11 @@ class SpeakerDataSource extends DataSource {
   };
 
   createSpeaker = async (objUser: Record<string, any>) => {
-    return this.db.insert({ userId: objUser.id }).write();
+    return await this.db.insert({ userId: objUser.id }).write();
+  };
+
+  getSpeakerByUserId = async (userId: string) => {
+    return await this.db.find({ userId }).value();
   };
 }
 

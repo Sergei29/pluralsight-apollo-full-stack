@@ -20,6 +20,10 @@ const User: Record<string, IFieldResolver<UserType, ContextType>> = {
 
     return userFavoriteSessions;
   },
+
+  speaker: (user, args, { dataSources }) => {
+    return dataSources.speakerDataSource.getSpeakerByUserId(user.id);
+  },
 };
 
 export default User;
