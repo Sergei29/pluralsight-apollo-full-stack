@@ -1,5 +1,5 @@
 import { IFieldResolver } from "apollo-server";
-import { ContextType } from "../types";
+import { ContextType, Role } from "../types";
 
 const Query: Record<string, IFieldResolver<any, ContextType>> = {
   sessions: (parent, args, { dataSources }, info) => {
@@ -18,8 +18,9 @@ const Query: Record<string, IFieldResolver<any, ContextType>> = {
     const speaker = await dataSources.speakerDataSource.getSpeakerById(id);
     return speaker;
   },
-  users: async (parent, args, context, info) => {
-    const users = await context.dataSources.userDataSource.getUsers(args);
+  users: async (parent, args, { dataSources, user }, info) => {
+    if (!user || user.role !== Role.ADMIN) return null;
+    const users = await dataSources.userDataSource.getUsers(args);
     return users;
   },
   userById: async (parent, { id }, { dataSources }, info) => {

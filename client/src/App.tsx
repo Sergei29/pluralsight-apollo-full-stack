@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Switch } from "react-router-dom";
+import { AuthContext } from "./graphql/AuthProvider";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Media } from "./pages/media/Media";
@@ -13,6 +14,7 @@ import useAppInit from "./hooks/useAppInit";
 
 const App: React.FC = () => {
   const { loading } = useAppInit();
+  const { isAdmin } = useContext(AuthContext);
   return (
     <div id="wrapper">
       <Header />
@@ -35,9 +37,11 @@ const App: React.FC = () => {
           <Route path="/conference">
             <Conference />
           </Route>
-          <Route path="/admin">
-            <Admin />
-          </Route>
+          {isAdmin() && (
+            <Route path="/admin">
+              <Admin />
+            </Route>
+          )}
           <Route path="/auth">
             <Auth />
           </Route>

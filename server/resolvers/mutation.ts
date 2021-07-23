@@ -1,5 +1,4 @@
 import { IFieldResolver, ApolloError } from "apollo-server";
-import _ from "lodash";
 import { ContextType, Role } from "../types";
 import { hashPassword, createToken, verifyPassword } from "../utils/auth";
 
@@ -18,7 +17,8 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     return session;
   },
 
-  markFeatured: async (parent, args, { dataSources }, info) => {
+  markFeatured: async (parent, args, { dataSources, user }, info) => {
+    if (!user || user?.role !== ADMIN) return null;
     return dataSources.speakerDataSource.markFeatured(
       args.speakerId,
       args.featured

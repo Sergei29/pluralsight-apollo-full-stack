@@ -3,7 +3,7 @@ import _ from "lodash";
 import { ContextType } from "../types";
 
 const Speaker: Record<string, IFieldResolver<any, ContextType>> = {
-  async sessions(speaker, args, { dataSources }) {
+  sessions: async (speaker, args, { dataSources }, info) => {
     const sessions = await dataSources.sessionDataSource.getSessions(args);
 
     const returns = sessions.filter((session: Record<string, any>) => {
@@ -11,6 +11,13 @@ const Speaker: Record<string, IFieldResolver<any, ContextType>> = {
     });
 
     return returns;
+  },
+  user: async (speaker, args, { dataSources }, info) => {
+    const { userDataSource } = dataSources;
+    if (speaker.userId) {
+      return userDataSource.getUserById(speaker.userId);
+    }
+    return undefined;
   },
 };
 

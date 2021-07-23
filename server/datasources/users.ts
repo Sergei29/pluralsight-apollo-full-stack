@@ -4,8 +4,6 @@ import low from "lowdb";
 import lodashId from "lodash-id";
 import FileSync from "lowdb/adapters/FileSync";
 
-const { groupBy } = _;
-
 const adapter = new FileSync<{ users: Record<string, any>[] }>(
   "./server/data/users.json"
 );
