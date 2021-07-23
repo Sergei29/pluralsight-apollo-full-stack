@@ -40,7 +40,7 @@ const typeDefs = gql`
     speakers: [Speaker]
   }
 
-  type Query {
+  type Query @rateLimit(limit: 5, duration: 10) {
     sessions(
       id: ID
       title: String

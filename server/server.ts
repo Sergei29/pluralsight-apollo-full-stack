@@ -1,4 +1,10 @@
 import { ApolloServer } from "apollo-server-express";
+import {
+  createRateLimitDirective,
+  createRateLimitTypeDef,
+  defaultKeyGenerator,
+  RateLimitKeyGenerator,
+} from "graphql-rate-limit-directive";
 import express from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
@@ -8,7 +14,7 @@ import UserDataSource from "./datasources/users";
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
 import { verifyToken } from "./utils/auth";
-import { TokenPayloadType } from "./types";
+import { TokenPayloadType, ContextType } from "./types";
 
 dotenv.config();
 
@@ -16,6 +22,17 @@ const port = process.env.PORT || 4000;
 const app = express();
 app.use(cookieParser());
 
+const keyGenerator: RateLimitKeyGenerator<ContextType> = (
+  directiveArgs,
+  obj,
+  args,
+  ctx,
+  info
+) => {
+  const defaultKey = defaultKeyGenerator(directiveArgs, obj, args, ctx, info);
+  const key = ctx.user ? `${ctx.user.sub}:${defaultKey}` : defaultKey;
+  return key;
+};
 const dataSources = () => ({
   sessionDataSource: new SessionDataSource(),
   speakerDataSource: new SpeakerDataSource(),
@@ -23,9 +40,12 @@ const dataSources = () => ({
 });
 
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: [createRateLimitTypeDef(), typeDefs],
   resolvers,
   dataSources,
+  schemaDirectives: {
+    rateLimit: createRateLimitDirective({ keyGenerator }) as any,
+  },
   context: ({ req, res }) => {
     let user: TokenPayloadType | null | string = null;
     /**
