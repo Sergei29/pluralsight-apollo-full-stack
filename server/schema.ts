@@ -1,6 +1,11 @@
 import { gql } from "apollo-server";
 
 const typeDefs = gql`
+  enum Role {
+    ADMIN
+    USER
+  }
+
   input SessionInput {
     title: String!
     description: String
@@ -59,6 +64,7 @@ const typeDefs = gql`
     id: String!
     email: String!
     favorites: [Session!]
+    role: Role
   }
 
   input Credentials {

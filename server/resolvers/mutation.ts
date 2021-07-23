@@ -1,12 +1,13 @@
 import { IFieldResolver, ApolloError } from "apollo-server";
 import _ from "lodash";
-import { ContextType } from "../types";
+import { ContextType, Role } from "../types";
 import { hashPassword, createToken, verifyPassword } from "../utils/auth";
 
 const errors = {
   USER_EXISTS: "User with this email already exists.",
   INCORRECT_EMAIL_PW: "Incorrect email or password.",
 };
+const { ADMIN, USER } = Role;
 
 const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
   createSession: async (parent, args, { dataSources, user }, info) => {
@@ -27,19 +28,21 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
   signUp: async (parent, { credentials }, { dataSources, res }, info) => {
     const { email, password } = credentials;
     const userCredentials = { email: email.toLowerCase(), password };
+    const { userDataSource, speakerDataSource } = dataSources;
 
-    const existingUser = dataSources.userDataSource.getUserByEmail(
-      userCredentials.email
-    );
-    if (existingUser) {
-      throw new ApolloError(errors.USER_EXISTS);
-    }
+    const existingUser = userDataSource.getUserByEmail(userCredentials.email);
+    if (existingUser) throw new ApolloError(errors.USER_EXISTS);
 
+    const role = userCredentials.email.endsWith("@globomantics.com")
+      ? ADMIN
+      : USER;
     const hash = hashPassword(userCredentials.password);
-    const newUser = dataSources.userDataSource.createUser({
+    const newUser = userDataSource.createUser({
       email: userCredentials.email,
       hash,
+      role,
     });
+    if (role === USER) speakerDataSource.createSpeaker(newUser);
 
     const token = createToken(newUser);
     res.cookie("token", token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 12 });
@@ -48,6 +51,7 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
       user: {
         id: newUser.id,
         email: newUser.email,
+        role: newUser.role,
       },
     };
   },
@@ -59,17 +63,13 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
     const existingUser = dataSources.userDataSource.getUserByEmail(
       userCredentials.email
     );
-    if (!existingUser) {
-      throw new ApolloError(errors.INCORRECT_EMAIL_PW);
-    }
+    if (!existingUser) throw new ApolloError(errors.INCORRECT_EMAIL_PW);
 
     const isValidPassword = verifyPassword(
       userCredentials.password,
       existingUser.hash
     );
-    if (!isValidPassword) {
-      throw new ApolloError(errors.INCORRECT_EMAIL_PW);
-    }
+    if (!isValidPassword) throw new ApolloError(errors.INCORRECT_EMAIL_PW);
 
     const token = createToken(existingUser);
     /**
@@ -84,6 +84,7 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
       user: {
         id: existingUser.id,
         email: existingUser.email,
+        role: existingUser.role,
       },
     };
   },
@@ -91,7 +92,7 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
   userInfo: async (parent, args, { user }, info) => {
     if (user) {
       return {
-        user: { id: user.sub, email: user.email },
+        user: { id: user.sub, email: user.email, role: user.role },
       };
     }
 

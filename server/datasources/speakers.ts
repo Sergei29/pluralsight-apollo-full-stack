@@ -16,34 +16,31 @@ class SpeakerDataSource extends DataSource {
     super();
   }
 
-  initialize(config: Record<string, any>) {
+  initialize = (config: Record<string, any>) => {
     this.db = db;
-  }
+  };
 
-  async getSpeakerById(id: string) {
+  getSpeakerById = async (id: string) => {
     return this.db.get("speakers").getById(id).value();
-  }
+  };
 
-  async getSpeakers(args: Record<string, any>) {
+  getSpeakers = async (args: Record<string, any>) => {
     const data = this.db.get("speakers").filter(args).value();
     return data;
-  }
+  };
 
-  // async makeSpeakerFeatured(id) {
-  //   const data = await this.patch(`/${id}`, {
-  //     featured: true,
-  //   });
-  //   return data;
-  // }
-
-  async markFeatured(speakerId: string, featured: boolean) {
+  markFeatured = async (speakerId: string, featured: boolean) => {
     const data = this.db
       .get("speakers")
       .find({ id: speakerId })
       .assign({ featured })
       .write();
     return data;
-  }
+  };
+
+  createSpeaker = async (objUser: Record<string, any>) => {
+    return this.db.insert({ userId: objUser.id }).write();
+  };
 }
 
 export default SpeakerDataSource;

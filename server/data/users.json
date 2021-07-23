@@ -1,25 +1,16 @@
 {
   "users": [
     {
-      "email": "test_user123@gmail.com",
-      "hash": "$2a$10$Zm0cM/KB8fP2xWZPWPmS1.n3M7hvsrcSMdwZgIcT3cTmeDCZk1Rta",
-      "id": "52b29b88-5fd5-42bf-a4d5-34a229a609da"
-    },
-    {
-      "email": "serge29@gmail.com",
-      "hash": "$2a$10$RxEGC3kFQwNl79c2g35sR.xWGkpvL3HjXLq3yELXdD9XTeuqZ0bW6",
-      "id": "84cb44cd-6356-426e-869a-f75fdbe5150b"
-    },
-    {
       "email": "sergejs.basangovs@gmail.com",
-      "hash": "$2a$10$zu1SGsm.96CkFoeMjgBYTOpJCJZZE6n2ZSQFrPvhBHYuaZWTODH4C",
-      "id": "695d4633-7445-4d5b-b4df-008518493f5a",
-      "favorites": []
+      "hash": "$2a$10$11D7iJwi4M702HavGnTGYewg6rmKb1C0qlrUCC9Z5ldjfj8eX0Fa.",
+      "role": "USER",
+      "id": "56d2c3c1-9dfc-4888-a99b-7cd164c13071"
     },
     {
-      "email": "sergei291975@yahoo.fr",
-      "hash": "$2a$10$14DFJdL2uZ/XjIqYvblF1.LUFPWWXOOSVk/sa7lxFyWMjIfSPLgsO",
-      "id": "61940e75-1318-43b3-98ef-e26a555672d0"
+      "email": "admin@globomantics.com",
+      "hash": "$2a$10$VJ6hYGQugF8Ep2Zo38vDQuEq7ELkjHqQdbqgyf8UnVk0yLuIDY3rK",
+      "role": "ADMIN",
+      "id": "3576b76a-8a45-489b-a631-ad57321bcba4"
     }
   ]
 }

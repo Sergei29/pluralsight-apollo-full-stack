@@ -4,8 +4,14 @@ import SessionDataSource from "./datasources/sessions";
 import SpeakerDataSource from "./datasources/speakers";
 import UserDataSource from "./datasources/users";
 
+export enum Role {
+  ADMIN = "ADMIN",
+  USER = "USER",
+}
+
 export type TokenPayloadType = {
   email?: string;
+  role?: Role;
 } & JwtPayload;
 
 export type DataSourcesType = {
