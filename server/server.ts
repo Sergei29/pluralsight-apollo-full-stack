@@ -10,6 +10,7 @@ import { createComplexityLimitRule } from "graphql-validation-complexity-types";
 import express from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import AuthDirective from "./directives/AuthDirective";
 import SessionDataSource from "./datasources/sessions";
 import SpeakerDataSource from "./datasources/speakers";
 import UserDataSource from "./datasources/users";
@@ -46,6 +47,7 @@ const server = new ApolloServer({
   resolvers,
   dataSources,
   schemaDirectives: {
+    requiresAdmin: AuthDirective,
     rateLimit: createRateLimitDirective({ keyGenerator }) as any,
   },
   validationRules: [

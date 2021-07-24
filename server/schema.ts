@@ -1,6 +1,7 @@
 import { gql } from "apollo-server";
 
 const typeDefs = gql`
+  directive @requiresAdmin on FIELD_DEFINITION
   directive @cost(value: Int) on FIELD_DEFINITION
   enum Role {
     ADMIN
@@ -57,7 +58,7 @@ const typeDefs = gql`
     sessionById(id: ID): Session
     speakers: [Speaker]
     speakerById(id: ID): Speaker
-    users: [User]
+    users: [User] @requiresAdmin
     userById(id: ID): User
     me: User
   }
