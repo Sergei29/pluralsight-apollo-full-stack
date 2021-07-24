@@ -28,6 +28,11 @@ const NavLinks: React.FC = () => {
           Conference
         </Link>
       </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="/favorites">
+          Favorites
+        </Link>
+      </li>
       {isAdmin() ? (
         <li className="nav-item">
           <Link className="nav-link" to="/admin">

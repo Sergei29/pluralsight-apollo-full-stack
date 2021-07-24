@@ -8,6 +8,7 @@ import { OurStory } from "./pages/OurStory/OurStory";
 import { Robotics } from "./pages/robotics/Robotics";
 import { Conference } from "./pages/conference/Conference";
 import { Home } from "./pages/home/Home";
+import FavoriteCountPage from "./pages/FavoriteCountPage";
 import Auth from "./pages/auth/Auth";
 import Admin from "./pages/admin";
 import useAppInit from "./hooks/useAppInit";
@@ -22,6 +23,9 @@ const App: React.FC = () => {
         <p>loading user info...</p>
       ) : (
         <Switch>
+          <Route path="/favorites">
+            <FavoriteCountPage />
+          </Route>
           <Route path="/" exact>
             <Home />
           </Route>

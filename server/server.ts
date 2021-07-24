@@ -54,7 +54,7 @@ const server = new ApolloServer({
   },
   validationRules: [
     depthLimit(3),
-    createComplexityLimitRule(600, {
+    createComplexityLimitRule(2000, {
       onCost: (cost) => {
         console.log("cost :>> ", cost);
       },
