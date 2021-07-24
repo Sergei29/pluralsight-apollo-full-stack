@@ -1,6 +1,7 @@
 import { gql } from "apollo-server";
 
 const typeDefs = gql`
+  directive @cost(value: Int) on FIELD_DEFINITION
   enum Role {
     ADMIN
     USER

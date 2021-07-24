@@ -5,6 +5,8 @@ import {
   defaultKeyGenerator,
   RateLimitKeyGenerator,
 } from "graphql-rate-limit-directive";
+import depthLimit from "graphql-depth-limit";
+import { createComplexityLimitRule } from "graphql-validation-complexity-types";
 import express from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
@@ -46,6 +48,14 @@ const server = new ApolloServer({
   schemaDirectives: {
     rateLimit: createRateLimitDirective({ keyGenerator }) as any,
   },
+  validationRules: [
+    depthLimit(3),
+    createComplexityLimitRule(600, {
+      onCost: (cost) => {
+        console.log("cost :>> ", cost);
+      },
+    }),
+  ],
   context: ({ req, res }) => {
     let user: TokenPayloadType | null | string = null;
     /**
