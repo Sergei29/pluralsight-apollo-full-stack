@@ -12,6 +12,13 @@ const Session: Record<string, IFieldResolver<any, ContextType>> = {
 
     return returns;
   },
+  async favoriteCount(session, args, { dataSources }) {
+    const users = await dataSources.userDataSource.getFavorites(session.id);
+    if (users) {
+      return users.length;
+    }
+    return 0;
+  },
 };
 
 export default Session;

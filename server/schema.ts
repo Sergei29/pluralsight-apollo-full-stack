@@ -40,6 +40,7 @@ const typeDefs = gql`
       )
     level: String
     speakers: [Speaker]
+    favoriteCount: Int
   }
 
   type Query @rateLimit(limit: 5, duration: 10) {

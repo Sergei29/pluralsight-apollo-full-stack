@@ -29,6 +29,10 @@ class UserDataSource extends DataSource {
     return this.db.getById(id).value();
   }
 
+  getFavorites(sessionId: string) {
+    return this.db.filter({ favorites: [`${sessionId}`] }).value();
+  }
+
   createUser(user: Record<string, any>) {
     return this.db.insert(user).write();
   }
