@@ -1,4 +1,4 @@
-import { ApolloServer } from "apollo-server-express";
+import { ApolloServer, PubSub } from "apollo-server-express";
 import {
   createRateLimitDirective,
   createRateLimitTypeDef,
@@ -10,6 +10,7 @@ import { createComplexityLimitRule } from "graphql-validation-complexity-types";
 import express from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import http from "http";
 import AuthDirective from "./directives/AuthDirective";
 import SessionDataSource from "./datasources/sessions";
 import SpeakerDataSource from "./datasources/speakers";
@@ -23,6 +24,7 @@ dotenv.config();
 
 const port = process.env.PORT || 4000;
 const app = express();
+const pubsub = new PubSub();
 app.use(cookieParser());
 
 const keyGenerator: RateLimitKeyGenerator<ContextType> = (
@@ -63,17 +65,19 @@ const server = new ApolloServer({
     /**
      * @description decode request cookie token to get user data, set it into context
      */
-    if (req.cookies.token) {
+    if (req && req.cookies.token) {
       const userDecodedData = verifyToken(req.cookies.token);
       user = userDecodedData;
     }
-    return { user, res };
+    return { user, res, pubsub };
   },
 });
 
 const corsOptions = { credentials: true, origin: "http://localhost:3000" };
 server.applyMiddleware({ app, cors: corsOptions });
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/graphql`);
 });

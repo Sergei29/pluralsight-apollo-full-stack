@@ -81,6 +81,11 @@ const typeDefs = gql`
     user: User
   }
 
+  type FavoriteCount {
+    sessionId: ID
+    count: Int
+  }
+
   type Mutation {
     createSession(session: SessionInput): Session
     toggleFavoriteSession(sessionId: ID!): User
@@ -89,6 +94,10 @@ const typeDefs = gql`
     markFeatured(speakerId: ID!, featured: Boolean!): Speaker
     userInfo: AuthPayload
     signOut: AuthPayload
+  }
+
+  type Subscription {
+    favorites: FavoriteCount
   }
 `;
 

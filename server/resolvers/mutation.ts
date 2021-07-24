@@ -1,5 +1,5 @@
 import { IFieldResolver, ApolloError } from "apollo-server";
-import { ContextType, Role } from "../types";
+import { ContextType, Role, FAVORITE_UPDATES } from "../types";
 import { hashPassword, createToken, verifyPassword } from "../utils/auth";
 
 const errors = {
@@ -113,7 +113,7 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
   toggleFavoriteSession: async (
     parent,
     { sessionId },
-    { dataSources, user },
+    { dataSources, user, pubsub },
     info
   ) => {
     if (user) {
@@ -121,6 +121,14 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
         sessionId,
         user.sub!
       );
+
+      await pubsub.publish(FAVORITE_UPDATES, {
+        favorites: {
+          sessionId,
+          count: dataSources.userDataSource.getFavorites(sessionId).length,
+        },
+      });
+
       return updatedUser;
     }
     return undefined;
