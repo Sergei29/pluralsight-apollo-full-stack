@@ -30,6 +30,7 @@ const AllSessionList: React.FC<Props> = ({ objLevels, isDescription }) => {
   useEffect(() => {
     const unsubscribe = subscribeToMore({
       document: FAVORITES_SUBSCRIBE,
+      variables: { sessionId: "79874" },
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData) return prev;
         const { count, sessionId } = subscriptionData.data?.favorites || {};

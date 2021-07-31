@@ -1,4 +1,4 @@
-import { IFieldResolver } from "apollo-server";
+import { IFieldResolver, withFilter } from "apollo-server";
 import { ContextType, FAVORITE_UPDATES } from "../types";
 
 type SubscriptionResolverType = Record<
@@ -8,11 +8,20 @@ type SubscriptionResolverType = Record<
 
 const Subscription: Record<string, SubscriptionResolverType> = {
   favorites: {
-    subscribe: async (parent, args, { pubsub, user }, info) => {
-      if (!user) return;
-      console.log("resolver, user :>> ", user);
-      return pubsub.asyncIterator(FAVORITE_UPDATES);
-    },
+    subscribe: withFilter(
+      (parent, args, { pubsub, user }, info) => {
+        if (!user) return;
+        console.log("resolver, user :>> ", user);
+        return pubsub.asyncIterator(FAVORITE_UPDATES);
+      },
+      (payload, variables) => {
+        if (!variables.sessionId) {
+          return true;
+        }
+
+        return variables.sessionId === payload.favorites.sessionId;
+      }
+    ),
   },
 };
 

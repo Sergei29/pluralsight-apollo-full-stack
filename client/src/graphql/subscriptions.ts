@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const FAVORITES_SUBSCRIBE = gql`
-  subscription Favorites {
-    favorites {
+  subscription Favorites($sessionId: ID) {
+    favorites(sessionId: $sessionId) {
       sessionId
       count
     }
