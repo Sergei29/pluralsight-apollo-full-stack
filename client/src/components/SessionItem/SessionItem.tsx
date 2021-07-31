@@ -13,8 +13,16 @@ type Props = {
 };
 
 const SessionItem: React.FC<Props> = ({ objSession, favorite }) => {
-  const { title, day, room, level, startsAt, speakers, description } =
-    objSession;
+  const {
+    title,
+    day,
+    room,
+    level,
+    startsAt,
+    speakers,
+    description,
+    favoriteCount = 0,
+  } = objSession;
   const [toggleFavorite] = useMutation(TOGGLE_FAVORITE_SESSION);
   const { isAuthenticated } = useContext(AuthContext);
 
@@ -58,7 +66,7 @@ const SessionItem: React.FC<Props> = ({ objSession, favorite }) => {
                     color: favorite ? "gold" : undefined,
                   }}
                 ></i>{" "}
-                Favorite
+                Favorite {` (${favoriteCount})`}
               </button>
             </span>
           )}

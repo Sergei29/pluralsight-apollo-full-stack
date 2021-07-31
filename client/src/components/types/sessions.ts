@@ -11,6 +11,7 @@ export type SessionFullType = {
   format: string;
   level: string;
   speakers: Partial<SpeakerFullType>[];
+  favoriteCount?: number;
 };
 
 export type SessionFullInputType = {

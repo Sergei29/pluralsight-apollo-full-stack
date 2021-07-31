@@ -13,6 +13,7 @@ export const SESSION_ATTRIBUTES = gql`
       id
       name
     }
+    favoriteCount
   }
 `;
 

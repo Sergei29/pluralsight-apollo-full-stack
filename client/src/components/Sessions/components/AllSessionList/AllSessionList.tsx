@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { SESSIONS } from "../../../../graphql/queries";
+import { FAVORITES_SUBSCRIBE } from "../../../../graphql/subscriptions";
 import SessionItem from "../../../SessionItem";
 import { SessionType, LevelsStateType, UserType } from "../../../types";
 
@@ -17,12 +18,52 @@ type Props = {
 };
 
 const AllSessionList: React.FC<Props> = ({ objLevels, isDescription }) => {
-  const { loading, error, data } = useQuery<ResponseDataType>(SESSIONS, {
-    variables: { isDescription },
-  });
+  const { loading, error, data, subscribeToMore } =
+    useQuery<Record<string, any>>(SESSIONS, {
+      variables: { isDescription },
+    }) || {};
+
   const { bIntro, bIntermediate, bAdvanced } = objLevels;
+
   const arrFavorites =
-    data?.user.favorites?.map((objSession) => objSession.id) || [];
+    data?.user?.favorites?.map(
+      (objSession: Record<string, any>) => objSession.id
+    ) || [];
+
+  /**
+   * @description effect to run subscription
+   * @returns {undefined}
+   */
+  useEffect(() => {
+    if (!data?.intro) return;
+
+    const unsubscribe = subscribeToMore({
+      document: FAVORITES_SUBSCRIBE,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData) return prev;
+        const { count, sessionId } = subscriptionData.data?.favorites || {};
+        const funcIterator = (objSession: Record<string, any>) =>
+          objSession.id === sessionId
+            ? { ...objSession, favoriteCount: count }
+            : objSession;
+
+        return {
+          ...prev,
+          advanced: prev.advanced.map(funcIterator),
+          intermediate: prev.intermediate.map(funcIterator),
+          intro: prev.intro.map(funcIterator),
+        };
+      },
+    });
+
+    /**
+     * @description cleanup on unmount
+     * @returns {undefined}
+     */
+    return () => {
+      unsubscribe();
+    };
+  }, [subscribeToMore]);
 
   if (loading) return <p>Loading Sessions...</p>;
   if (error) return <p>Error loading sessions!</p>;

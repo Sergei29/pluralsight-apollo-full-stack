@@ -1,9 +1,9 @@
 import React from "react";
 import { useSubscription } from "@apollo/client";
-import { FAVORITES } from "../../graphql/subscriptions";
+import { FAVORITES_SUBSCRIBE } from "../../graphql/subscriptions";
 
 const FavoriteCount = () => {
-  const { loading, error, data } = useSubscription(FAVORITES);
+  const { loading, error, data } = useSubscription(FAVORITES_SUBSCRIBE);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
