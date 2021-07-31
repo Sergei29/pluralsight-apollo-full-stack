@@ -17,6 +17,9 @@ const wsLink = new WebSocketLink({
     process.env.NODE_ENV === "development"
       ? "ws://localhost:4000/graphql"
       : "/graphql",
+  options: {
+    reconnect: true,
+  },
 });
 
 const httpLink = new HttpLink({

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { TOGGLE_FAVORITE_SESSION } from "../../graphql/mutations";
-import { SESSIONS } from "../../graphql/queries";
 import { AuthContext } from "../../graphql/AuthProvider";
 import { SessionType } from "../types";
 import "./session-item.css";

@@ -76,7 +76,7 @@ const Mutation: Record<string, IFieldResolver<any, ContextType>> = {
      * @description setting set-cookie instruction into the response header
      */
     res.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: 1000 * 60 * 60 * 12,
     });
 

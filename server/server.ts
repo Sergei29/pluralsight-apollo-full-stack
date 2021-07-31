@@ -60,8 +60,29 @@ const server = new ApolloServer({
       },
     }),
   ],
-  context: ({ req, res }) => {
+  subscriptions: {
+    onConnect: (params, WebSocket) => {
+      console.log("Connected.");
+
+      const token: string = (
+        WebSocket as Record<string, any>
+      ).upgradeReq.headers.cookie.replace("token=", "");
+
+      const user = verifyToken(token);
+
+      return { user };
+    },
+    onDisconnect: () => {
+      console.log("Disconnected.");
+    },
+  },
+  context: ({ req, res, connection }) => {
     let user: TokenPayloadType | null | string = null;
+
+    if (connection && connection?.context) {
+      user = connection.context.user || null;
+    }
+
     /**
      * @description decode request cookie token to get user data, set it into context
      */

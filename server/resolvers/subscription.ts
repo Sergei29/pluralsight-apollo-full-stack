@@ -8,7 +8,9 @@ type SubscriptionResolverType = Record<
 
 const Subscription: Record<string, SubscriptionResolverType> = {
   favorites: {
-    subscribe: async (parent, args, { pubsub }, info) => {
+    subscribe: async (parent, args, { pubsub, user }, info) => {
+      if (!user) return;
+      console.log("resolver, user :>> ", user);
       return pubsub.asyncIterator(FAVORITE_UPDATES);
     },
   },

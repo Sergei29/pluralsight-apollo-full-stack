@@ -2,15 +2,8 @@ import React, { Fragment, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { SESSIONS } from "../../../../graphql/queries";
 import { FAVORITES_SUBSCRIBE } from "../../../../graphql/subscriptions";
-import { SessionType, LevelsStateType, Days, UserType } from "../../../types";
+import { SessionType, LevelsStateType, Days } from "../../../types";
 import SessionItem from "../../../SessionItem";
-
-type ResponseDataType = {
-  intro: SessionType[];
-  intermediate: SessionType[];
-  advanced: SessionType[];
-  user: UserType;
-};
 
 type Props = {
   day: Days;

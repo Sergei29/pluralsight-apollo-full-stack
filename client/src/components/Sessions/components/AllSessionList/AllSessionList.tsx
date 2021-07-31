@@ -3,14 +3,7 @@ import { useQuery } from "@apollo/client";
 import { SESSIONS } from "../../../../graphql/queries";
 import { FAVORITES_SUBSCRIBE } from "../../../../graphql/subscriptions";
 import SessionItem from "../../../SessionItem";
-import { SessionType, LevelsStateType, UserType } from "../../../types";
-
-type ResponseDataType = {
-  intro: SessionType[];
-  intermediate: SessionType[];
-  advanced: SessionType[];
-  user: UserType;
-};
+import { SessionType, LevelsStateType } from "../../../types";
 
 type Props = {
   objLevels: LevelsStateType;
@@ -35,8 +28,6 @@ const AllSessionList: React.FC<Props> = ({ objLevels, isDescription }) => {
    * @returns {undefined}
    */
   useEffect(() => {
-    if (!data?.intro) return;
-
     const unsubscribe = subscribeToMore({
       document: FAVORITES_SUBSCRIBE,
       updateQuery: (prev, { subscriptionData }) => {
